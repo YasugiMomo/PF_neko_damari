@@ -1,24 +1,29 @@
-# README
+# <ネコだまり>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
+### サイトテーマ
+<東京都内の猫カフェに関するレビューを閲覧・投稿できるサイト>
 
-* Ruby version
+### テーマを選んだ理由
+<猫が好きで、猫カフェにも行くのですが、猫カフェも店舗によってさまざまな特徴があることに気づきました。
+　人によって目的や好みは違うので、猫カフェ専用のレビューサイトを作ることでお気に入りの猫カフェを見つける助けになればと思い、このテーマにしました。>
 
-* System dependencies
+### ターゲットユーザ
+<猫が好きな人、猫に興味があり、猫カフェに行きたいと考えている人>
 
-* Configuration
+### 主な利用シーン
+<猫カフェに行く前にレビューを参考にする、実際に行った猫カフェのレビューを投稿する>
 
-* Database creation
+## 設計書
+<...>
 
-* Database initialization
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+- Google Map places API
