@@ -1,5 +1,6 @@
 ja:
   activerecord:
+  # モデルごとの属性
     attributes:
       customer:
         current_password: "現在のパスワード"
@@ -7,6 +8,7 @@ ja:
         password: "パスワード"
         password_confirmation: "確認用パスワード"
         remember_me: "ログインを記憶"
+    # モデル名
     models:
       customer: "ユーザ"
   public:
