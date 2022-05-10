@@ -1,46 +1,36 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'reviews/index'
-    get 'reviews/show'
-  end
-  namespace :admin do
-    get 'shops/index'
-    get 'shops/show'
-  end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
-  namespace :public do
-    get 'reviews/index'
-    get 'reviews/show'
-    get 'reviews/new'
-    get 'reviews/create'
-    get 'reviews/edit'
-    get 'reviews/update'
-    get 'reviews/destroy'
-  end
-  namespace :public do
-    get 'shops/index'
-    get 'shops/show'
-  end
-  get 'homes/top'
-  get 'homes/about'
-  namespace :public do
-    get 'customers/sho'
-    get 'customers/edit'
-    get 'customers/out'
-  end
+
+  root to: 'homes#top'
+  get '/home/about' => 'homes#about', as: "about"
+
   # 顧客用
   devise_for :customers, skip: [:passwords], controllers: {
-   registrations: "public/registrations",
-   sessions: 'public/sessions'
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
   }
+
   # 管理者用
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
-   sessions: "admin/sessions"
+    sessions: "admin/sessions"
   }
+
+  # 顧客用
+  scope module: :public do
+    get '/customer/out' => '/public/customers#out'
+    patch '/customer/quit' => '/public/customers#quit'
+    resources :customers, only: [:show, :edit, :update]
+    resources :shops, only: [:index, :show]
+    resources :reviewss do
+     resources :comments, only: [:create, :edit, :update, :destroy]
+    end
+  end
+
+  # 管理者用
+  namespace :admin do
+    resources :customers, only: [:index, :show, :edit, :update]
+    resources :shops, only: [:index, :show]
+    resources :reviews, only: [:index, :show, :destroy]
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
