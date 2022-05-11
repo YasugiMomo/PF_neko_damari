@@ -1,2 +1,17 @@
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<h1>会員情報編集画面</h1>
+
+<%= form_with model: @customer, url: customer_path(@customer.id), method: :patch do |f| %>
+
+  <div class=field>
+    <%= f.label "ニックネーム" %><br />
+    <%= f.text_field :nickname, autofocus: true, placeholder:"ニックネーム"%>
+  </div>
+
+  <div class=field>
+    <%= f.label "プロフィール画像" %><br />
+    <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+  </div>
+
+  <%= f.submit '保存' %>
+
+<% end %>

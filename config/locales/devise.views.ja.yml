@@ -55,6 +55,7 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
+        nickname: "ニックネーム"
     sessions:
       new:
         sign_in: "ログイン"
