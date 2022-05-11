@@ -14,10 +14,16 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  # ゲストログイン
+  devise_scope :customer do
+    post 'customers/guest_sign_in' => 'customers/sessions#guest_sign_in'
+  end
+
+
   # 顧客用
   scope module: :public do
-    get '/customer/out' => '/public/customers#out'
-    patch '/customer/quit' => '/public/customers#quit'
+    get '/customer/out' => 'public/customers#out'
+    patch '/customer/quit' => 'public/customers#quit'
     resources :customers, only: [:show, :edit, :update]
     resources :shops, only: [:index, :show]
     resources :reviewss do

@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
   create_table "comments", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "review_id", null: false
-    t.text "comment"
+    t.text "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_comments_on_customer_id"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
   create_table "reviews", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "shop_id", null: false
-    t.text "content"
-    t.float "score"
+    t.text "content", null: false
+    t.float "score", default: 0.0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_reviews_on_customer_id"
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
   end
 
   create_table "shops", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
+    t.string "name", null: false
+    t.string "address", null: false
     t.string "phone_number"
     t.string "website"
     t.datetime "created_at", precision: 6, null: false
