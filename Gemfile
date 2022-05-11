@@ -61,6 +61,8 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 
+gem 'image_processing', '~> 1.2'
+
 # .envファイルにて環境変数を扱えるようにする
 gem 'dotenv-rails'
 # Places APIを利用するためのライブラリ
