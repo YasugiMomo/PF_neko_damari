@@ -22,12 +22,13 @@ Rails.application.routes.draw do
 
   # 顧客用
   scope module: :public do
-    get '/customer/out' => 'public/customers#out'
-    patch '/customer/quit' => 'public/customers#quit'
+    get '/customer/out' => 'public/customers#out', as: 'out'
+    patch '/customer/quit' => 'public/customers#quit', as: 'quit'
     resources :customers, only: [:show, :edit, :update]
-    resources :shops, only: [:index, :show]
-    resources :reviewss do
-     resources :comments, only: [:create, :edit, :update, :destroy]
+    resources :shops, only: [:index, :show] do
+      resources :reviews, onlu: [:index,:create] do
+        resources :comments, only: [:create, :edit, :update, :destroy]
+      end
     end
   end
 
