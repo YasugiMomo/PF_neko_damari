@@ -1,0 +1,17 @@
+
+<table>
+  <tr><%= image_tag @customer.get_profile_image(100,100) %></tr>
+  <tr>
+    <th>ニックネーム</th>
+    <td><%= @customer.nickname %></td>
+  </tr>
+  <tr>
+    <th></th>
+    <td></td>
+  </tr>
+</table>
+
+<div class='row'>
+   <!--編集ページへのリンク-->
+   <%= link_to "編集する", edit_customer_path(@customer.id) %>
+</div>
