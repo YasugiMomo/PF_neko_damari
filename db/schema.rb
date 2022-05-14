@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
     t.integer "shop_id", null: false
     t.string "title"
     t.text "content"
-    t.float "score", default: 0.0, null: false
+    t.float "rate", default: 0.0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_reviews_on_customer_id"

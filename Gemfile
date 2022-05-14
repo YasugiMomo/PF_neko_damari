@@ -71,3 +71,6 @@ gem 'google_places'
 group :production do
   gem 'mysql2'
 end
+
+# ログの確認
+gem 'pry-rails'

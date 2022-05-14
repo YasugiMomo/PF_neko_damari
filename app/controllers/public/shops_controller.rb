@@ -5,6 +5,9 @@ class Public::ShopsController < ApplicationController
 
   def show
     @shop = Shop.find(params[:id])
+    @reviews = @shop.reviews
     @review = Review.new
   end
+
+
 end
