@@ -1,2 +1,11 @@
-<h1>Public::Shops#index</h1>
-<p>Find me in app/views/public/shops/index.html.erb</p>
+<p>猫カフェ一覧</p>
+
+<% @shops.each do |shop| %>
+
+  <p>店舗名</p>
+  <span><%= shop.name %></span>
+
+  <p>住所</p>
+  <span><%= shop.address %></span>
+
+<% end %>
