@@ -1,24 +1,45 @@
 <div class="container">
-  <p>レビュー一覧</p>
+
+  <p><%= link_to @shop.name, shop_path(@shop) %>のレビュー一覧</p>
 
   <% @reviews.each do |review| %>
-    <p><%= review.title %></p>
-    <p><%= review.content %></p>
-    <h4 class="mb-3">評価：<%= review.rate %>点 </h4>
-    <div id="star-rate-<%= review.id %>"></div>
+  <div class="row">
+
+    <div class="col-2">
+      <%= image_tag review.customer.get_profile_image(100,100) %><br>
+      <%= review.customer.nickname %>
+    </div>
+
+    <div class="col-2">
+      <p class="mb-3">評価：<%= review.rate %>点 </p>
+      <div id="star-rate-<%= review.id %>"></div>
+    </div>
+
+    <div class="col-2">
+      <p><%= link_to review.title, shop_review_path(review.shop_id, review.id) %></p>
+      <p><%= review.content %></p>
+    </div>
+
+    <div class="col-2">
+      <%= link_to review.comments.count, shop_review_path(review.shop_id, review.id)  %>コメント
+    </div>
+
+    <div class="col-2">
+      <%= link_to "詳細を見る", shop_review_path(review.shop_id, review.id) %>
+    </div>
+
+  </div>
+
     <script>
-          $('#star-rate-<%= review.id %>').raty({
-            size: 36,
-            starOff:  '<%= asset_path('star-off.png') %>',
-            starOn : '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            half: true,
-            readOnly: true,
-            score: <%= review.rate %>,
-        });
+      $('#star-rate-<%= review.id %>').raty({
+        size: 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        readOnly: true,
+        score: <%= review.rate %>,
+      });
     </script>
-    <!--レビューの詳細へ-->
-    <%= link_to "詳細を見る", shop_review_path(review.shop_id, review.id) %>
 
   <% end %>
 </div>

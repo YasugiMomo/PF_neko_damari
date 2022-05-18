@@ -8,7 +8,7 @@
     <p><%= @shop.address %></p>
   </div>
 
-  <div class="review-section">
+  <div class="review-details-section">
     <p>レビュー詳細</p>
 
     <p>評価：<%= @review.rate %>点 </p>
@@ -24,19 +24,29 @@
             score: <%= @review.rate %>,
         });
     </script>
-    <div>
-      タイトル：
-      <%= @review.title %>
+    <div class="review-section">
+      <div>
+        タイトル：
+        <%= @review.title %>
+      </div>
+      <div>
+        レビュー:
+        <%= @review.content %>
+      </div>
+      <!--レビューの投稿画像を表示-->
+      <div>
+        <p>投稿写真：</p><br>
+        <% if @review.review_image.attached? %>
+          <%= image_tag @review.review_image, size: "100×100" %>
+        <% else %>
+          <%= image_tag 'no_image', size: "100x100" %>
+        <% end %>
+      </div>
     </div>
-    <div>
-      レビュー:
-      <%= @review.content %>
-    </div>
-    <!--レビューの投稿画像を表示-->
 
     <div class="action">
-      <%= link_to "編集する", edit_shop_review_path(@review), class: "btn btn-success" %>
       <% if @review.customer == current_customer %>
+        <%= link_to "編集する", edit_shop_review_path(@review), class: "btn btn-success" %>
         <%= link_to "削除する", shop_review_path(@review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
       <% end %>
     </div>
@@ -50,7 +60,7 @@
       <%= comment.customer.nickname %>
       <%= comment.comment %>
       <% if comment.customer == current_customer %>
-        <%= link_to "削除する", shop_review_comment_path(comment.review_id, comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+        <%= link_to "削除する", comment_path(comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
       <% end %>
     </div>
     <% end %>

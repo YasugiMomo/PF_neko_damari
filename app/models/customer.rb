@@ -9,6 +9,7 @@ class Customer < ApplicationRecord
 
   has_one_attached :profile_image
 
+  validates :nickname, presence: true
 
   def get_profile_image(width, height)
     unless profile_image.attached?

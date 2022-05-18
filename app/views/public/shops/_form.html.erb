@@ -24,6 +24,10 @@
       </div>
 
       <div>
+        <%= f.label "画像を投稿する" %><br>
+        <%= f.file_field :review_image, accept: "image/*" %>
+      </div>
+      <div>
         <%= f.submit "投稿する" %>
       </div>
 
@@ -36,9 +40,7 @@
           size     : 36,
           starOff:  '<%= asset_path('star-off.png') %>',
           starOn : '<%= asset_path('star-on.png') %>',
-          starHalf: '<%= asset_path('star-half.png') %>',
           scoreName: 'review[rate]',
-          half: true,
         });
       </script>
 

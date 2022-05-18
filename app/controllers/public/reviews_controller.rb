@@ -16,7 +16,7 @@ class Public::ReviewsController < ApplicationController
       # レビューの一覧へ
       redirect_to shop_reviews_path(shop)
     else
-      flash[:alert] = "入力内容に不備があります。再度入力してください。"
+      flash[:alert] = "レビューの投稿に失敗入力内容をご確認いただき、再度お試しください。"
       @shop = Shop.find(params[:shop_id])
       render "public/shops/show"
     end
@@ -34,10 +34,14 @@ class Public::ReviewsController < ApplicationController
   end
 
   def update
-    review = Review.find(params[:id])
-    review.update(review_params)
-    flash[:notice] = "レビューを更新しました。"
-    redirect_to shop_review_path(review.shop_id, review.id)
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      flash[:notice] = "レビューを更新しました。"
+      redirect_to shop_review_path(review.shop_id, review.id)
+    else
+      flash[:alert] = "レビューの更新に失敗しました。入力内容をご確認いただき、再度お試しください。"
+      render "edit"
+    end
   end
 
   def destroy

@@ -27,9 +27,10 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update]
     resources :shops, only: [:index, :show] do
       resources :reviews, except: [:new] do
-        resources :comments, only: [:create, :destroy]
+        resource :comments, only: [:create]
       end
     end
+    resources :comments, only: [:destroy]
   end
 
   # 管理者用
