@@ -1,11 +1,39 @@
-<p>猫カフェ一覧</p>
-
-<% @shops.each do |shop| %>
-
-  <p>店舗名</p>
-  <span><%= shop.name %></span>
-
-  <p>住所</p>
-  <span><%= shop.address %></span>
-
-<% end %>
+<section class="section mt-6">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-5">
+        <% @shops.each do |shop| %>
+          <div class="card mb-6">
+            <header class="card-header">
+              <p class="card-header-title">
+                <%= shop.name %>
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <div class="content average-score">
+                  <div class="star-rating mb-2">
+                    <div class="average-review-rating" data-score=<%= shop.avg_rate %>></div>
+                  </div>
+                  <div class="average-score-display ml-3 pt-2">
+                    <%= shop.avg_rate %>点（<%=link_to shop.reviews.count, shop_reviews_path(shop.id) %>件のレビュー）
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <%= link_to shop_reviews_path(shop), class: "button card-footer-item" do %>
+                レビューを見る
+              <% end %>
+              <%= link_to shop_path(shop), class: "button card-footer-item" do %>
+                レビューを書く
+              <% end %>
+            </footer>
+          </div>
+        <% end %>
+        <!--平均点を星で表示-->
+        <%= render 'average' %>
+      </div>
+    </div>
+  </div>
+</section>

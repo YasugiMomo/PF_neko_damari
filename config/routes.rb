@@ -26,8 +26,8 @@ Rails.application.routes.draw do
     patch '/customer/quit' => 'public/customers#quit', as: 'quit'
     resources :customers, only: [:show, :edit, :update]
     resources :shops, only: [:index, :show] do
-      resources :reviews do
-        resources :comments, only: [:create, :edit, :update, :destroy]
+      resources :reviews, except: [:new] do
+        resources :comments, only: [:create, :destroy]
       end
     end
   end

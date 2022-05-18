@@ -1,6 +1,7 @@
-<p>レビュー一覧</p>
+<div class="container">
+  <p>レビュー一覧</p>
 
-<% @reviews.each do |review| %>
+  <% @reviews.each do |review| %>
     <p><%= review.title %></p>
     <p><%= review.content %></p>
     <h4 class="mb-3">評価：<%= review.rate %>点 </h4>
@@ -17,6 +18,8 @@
         });
     </script>
     <!--レビューの詳細へ-->
-　　
-<% end %>
+    <%= link_to "詳細を見る", shop_review_path(review.shop_id, review.id) %>
+
+  <% end %>
+</div>
 

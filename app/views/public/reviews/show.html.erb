@@ -1,2 +1,74 @@
-<p>レビュー詳細</p>
+
+<div class="container">
+
+
+  <div class="shop-section">
+    <!--お店の情報-->
+    <p><%= @shop.name %></p>
+    <p><%= @shop.address %></p>
+  </div>
+
+  <div class="review-section">
+    <p>レビュー詳細</p>
+
+    <p>評価：<%= @review.rate %>点 </p>
+    <div id="star-rate-<%= @review.id %>",  class="mb-2"></div>
+    <script>
+          $('#star-rate-<%= @review.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: <%= @review.rate %>,
+        });
+    </script>
+    <div>
+      タイトル：
+      <%= @review.title %>
+    </div>
+    <div>
+      レビュー:
+      <%= @review.content %>
+    </div>
+    <!--レビューの投稿画像を表示-->
+
+    <div class="action">
+      <%= link_to "編集する", edit_shop_review_path(@review), class: "btn btn-success" %>
+      <% if @review.customer == current_customer %>
+        <%= link_to "削除する", shop_review_path(@review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="comment-index-section">
+    <p>コメント一覧</p>
+    <% @comments.each do |comment| %>
+    <div class="comment-list">
+      <%= comment.customer.nickname %>
+      <%= comment.comment %>
+      <% if comment.customer == current_customer %>
+        <%= link_to "削除する", shop_review_comment_path(comment.review_id, comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="comment-section">
+    <!--コメント投稿フォーム-->
+    <%= form_with model: [@shop, @review, @comment] do |f| %>
+
+      <%= f.label "コメント：" %><br>
+      <%= f.text_area :comment %><br>
+
+      <%= f.submit "コメントする" %>
+
+    <% end %>
+  </div>
+
+</div>
+
+
 

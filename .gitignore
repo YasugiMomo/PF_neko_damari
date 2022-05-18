@@ -40,3 +40,6 @@ yarn-debug.log*
 .yarn-integrity
 
 /.env
+/config.json
+/shops.rb
+/shops.html

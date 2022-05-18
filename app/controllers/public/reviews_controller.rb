@@ -24,6 +24,7 @@ class Public::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @shop = Shop.find(params[:shop_id])
     @comment = Comment.new
     @comments = @review.comments
   end
@@ -35,12 +36,15 @@ class Public::ReviewsController < ApplicationController
   def update
     review = Review.find(params[:id])
     review.update(review_params)
-    redirect_to shop_review_path(review.id)
+    flash[:notice] = "レビューを更新しました。"
+    redirect_to shop_review_path(review.shop_id, review.id)
   end
 
   def destroy
-    Review.find(params[:id]).destroy
-    redirect_to
+    @review = Review.find(params[:id])
+    @review.destroy
+    flash[:notice] = "レビューを削除しました。"
+    redirect_to customer_path(current_customer)
   end
 
 

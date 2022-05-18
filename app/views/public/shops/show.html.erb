@@ -10,8 +10,11 @@
           </header>
           <div class="card-content">
             <div class="content average-score">
+              <div class="star-ratubg mb-2">
+                <div class="average-review-rating" data-score=<%= @shop.avg_rate %>></div>
+                <%= render 'average' %>
               <div class="average-score-display ml-3 pt-2">
-               点（<%= @shop.reviews.count %>件のレビュー）
+                <%= @shop.avg_rate %>点(<%= link_to @shop.reviews.count, shop_review_path(@shop) %>件のレビュー)
               </div>
             </div>
           </div>

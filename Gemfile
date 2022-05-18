@@ -74,3 +74,6 @@ end
 
 # ログの確認
 gem 'pry-rails'
+
+gem 'google_drive'
+gem "google-apis-sheets_v4"

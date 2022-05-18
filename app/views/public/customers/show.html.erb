@@ -1,11 +1,15 @@
-<h1>マイページ</h1>
+<div class="container">
+  <h1>マイページ</h1>
 
-<div class="left-section">
-  <%= render 'info', customer: @customer %>
+  <div class="left-section">
+    <%= render 'info', customer: @customer %>
+  </div>
+
+  <div class="right-section">
+    <!--current_customerのrevieew一覧-->
+    <%= render 'reviews', customer: @customer, shop: @shop, reviews: @reviews %>
+  </div>
+  <div>
+    <!--評価の高い猫カフェを表示してレビューを促進する？-->
+  </div>
 </div>
-
-<div class="right-section">
-  <!--current_customerのrevieew一覧-->
-  
-</div>
-
