@@ -77,3 +77,5 @@ gem 'pry-rails'
 
 gem 'google_drive'
 gem "google-apis-sheets_v4"
+
+gem 'i18n_generators'

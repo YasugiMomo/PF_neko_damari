@@ -42,6 +42,12 @@
           <%= image_tag 'no_image', size: "100x100" %>
         <% end %>
       </div>
+      <div>
+        <% @review_tags.each do |tag| %>
+          <%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
+          <%= "(#{tag.reviews.count})" %>
+        <% end %>
+      </div>
     </div>
 
     <div class="action">

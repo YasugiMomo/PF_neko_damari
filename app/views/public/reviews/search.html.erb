@@ -1,11 +1,12 @@
 <div class="container">
+  <P>レビュー一覧</P>
 
-  <p><%= link_to @shop.name, shop_path(@shop) %>のレビュー一覧</p>
-  <P>
-    <%= link_to '新しい順', shop_reviews_path(latest: "true") %>|
-    <%= link_to '古い順', shop_reviews_path(old: "true") %>|
-    <%= link_to '評価の高い順', shop_reviews_path(star_count: "true") %>
-  </P>
+  <% @tag_list.each do |list| %>
+    <%= link_to list.tag_name, tag_reviews_path(tag_id: list.id) %>
+    <%= "(#{list.reviews.count})" %>
+  <% end %>
+
+  <P>タグが<%= "#{@tag.tag_name}" %>の投稿一覧</P>
 
   <% @reviews.each do |review| %>
   <div class="row">
@@ -52,4 +53,3 @@
 
   <% end %>
 </div>
-

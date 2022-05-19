@@ -7,6 +7,7 @@ class Public::ShopsController < ApplicationController
     @shop = Shop.find(params[:id])
     @reviews = @shop.reviews
     @review = Review.new
+    @tag_list = Tag.all
   end
 
 

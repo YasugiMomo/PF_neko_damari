@@ -2,16 +2,28 @@ class Public::ReviewsController < ApplicationController
  before_action :authenticate_customer!, only: [:create]
 
   def index
+    @tag_list = Tag.all
     # お店に紐づいたレビューの表示
     @shop = Shop.find(params[:shop_id])
-    @reviews = @shop.reviews
+    # 絞り込み機能
+    if params[:latest]
+      @reviews = @shop.reviews.latest
+    elsif params[:old]
+      @reviews = @shop.reviews.old
+    elsif params[:star_count]
+      @reviews = @shop.reviews.star_count
+    else
+      @reviews = @shop.reviews
+    end
   end
 
   def create
     shop = Shop.find(params[:shop_id])
     review = current_customer.reviews.new(review_params)
     review.shop_id = shop.id
+    tag_list = params[:review][:tag_name].split(nill)
     if review.save
+      review.save_tag(tag_list)
       flash[:notice] = "レビューを投稿しました。"
       # レビューの一覧へ
       redirect_to shop_reviews_path(shop)
@@ -21,12 +33,19 @@ class Public::ReviewsController < ApplicationController
       render "public/shops/show"
     end
   end
+  
+  def search
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @reviews = @tag.reviews
+  end
 
   def show
     @review = Review.find(params[:id])
     @shop = Shop.find(params[:shop_id])
     @comment = Comment.new
     @comments = @review.comments
+    @review_tags = @review.tags
   end
 
   def edit

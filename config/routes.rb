@@ -39,6 +39,10 @@ Rails.application.routes.draw do
     resources :shops, only: [:index, :show]
     resources :reviews, only: [:index, :show, :destroy]
   end
+  
+  resources :tags do
+    get 'reviews' => 'reviews#search'
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -27,6 +27,22 @@
         <%= f.label "画像を投稿する" %><br>
         <%= f.file_field :review_image, accept: "image/*" %>
       </div>
+
+      <div>
+        <p>
+          スペースを入力することで複数にタグを付けることができます。<br>
+          例：猫 保護猫カフェ かわいい
+        </p>
+        <%= f.text_field :tag_name %>
+        <div>
+          <% @tag_list.each do |list| %>
+            <%= link_to list.tag_name, tag_reviews_path(tag_id: list.id) %>
+            <%= "(#{list.reviews.count})" %>
+          <% end %>
+        </div>
+      </div>
+
+
       <div>
         <%= f.submit "投稿する" %>
       </div>
