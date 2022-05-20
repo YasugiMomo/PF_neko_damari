@@ -36,7 +36,7 @@
         <%= f.text_field :tag_name %>
         <div>
           <% @tag_list.each do |list| %>
-            <%= link_to list.tag_name, tag_reviews_path(tag_id: list.id) %>
+            <%= link_to list.tag_name, tag_reviews_path(list.id) %>
             <%= "(#{list.reviews.count})" %>
           <% end %>
         </div>

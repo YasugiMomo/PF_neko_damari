@@ -1,2 +1,22 @@
-<h1>Admin::Customers#index</h1>
-<p>Find me in app/views/admin/customers/index.html.erb</p>
+<div class="container">
+  <P>会員一覧</P>
+
+  <table>
+    <tr>
+    <th></th>
+    <th></th>
+    </tr>
+    <% @customers.each do |customer| %>
+    <tr>
+      <td>
+        <%= image_tag customer.get_profile_image(200,200) %><br>
+        <%= customer.nickname %>
+      </td>
+      <td><%= link_to customer.reviews.count, shop_reviews_path(customer) %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
+
+

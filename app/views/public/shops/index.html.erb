@@ -16,7 +16,7 @@
                     <div class="average-review-rating" data-score=<%= shop.avg_rate %>></div>
                   </div>
                   <div class="average-score-display ml-3 pt-2">
-                    <%= shop.avg_rate %>点（<%=link_to shop.reviews.count, shop_reviews_path(shop.id) %>件のレビュー）
+                    <%= shop.avg_rate %>点（<%= link_to shop.reviews.count, shop_reviews_path(shop.id) %>件のレビュー）
                   </div>
                 </div>
               </div>

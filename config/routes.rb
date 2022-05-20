@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       end
     end
     resources :comments, only: [:destroy]
+    resources :tags do
+      get 'reviews' => 'reviews#search'
+    end
   end
 
   # 管理者用
@@ -38,10 +41,6 @@ Rails.application.routes.draw do
     resources :customers, only: [:index, :show, :edit, :update]
     resources :shops, only: [:index, :show]
     resources :reviews, only: [:index, :show, :destroy]
-  end
-  
-  resources :tags do
-    get 'reviews' => 'reviews#search'
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -6,7 +6,7 @@
     <%= "(#{list.reviews.count})" %>
   <% end %>
 
-  <P>タグが<%= "#{@tag.tag_name}" %>の投稿一覧</P>
+  <P><span>#<%= "#{@tag.tag_name}" %></span>の投稿一覧</P>
 
   <% @reviews.each do |review| %>
   <div class="row">
