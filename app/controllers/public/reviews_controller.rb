@@ -18,22 +18,22 @@ class Public::ReviewsController < ApplicationController
   end
 
   def create
-    shop = Shop.find(params[:shop_id])
-    review = current_customer.reviews.new(review_params)
-    review.shop_id = shop.id
-    tag_list = params[:review][:tag_name].split(nill)
-    if review.save
-      review.save_tag(tag_list)
+    @shop = Shop.find(params[:shop_id])
+    @review = current_customer.reviews.new(review_params)
+    @review.shop_id = @shop.id
+    @tag_list = params[:review][:tag_name].split(nil)
+    if @review.save
+      @review.save_tag(@tag_list)
       flash[:notice] = "レビューを投稿しました。"
       # レビューの一覧へ
-      redirect_to shop_reviews_path(shop)
+      redirect_to shop_reviews_path(@shop)
     else
       flash[:alert] = "レビューの投稿に失敗入力内容をご確認いただき、再度お試しください。"
       @shop = Shop.find(params[:shop_id])
       render "public/shops/show"
     end
   end
-  
+
   def search
     @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id])
