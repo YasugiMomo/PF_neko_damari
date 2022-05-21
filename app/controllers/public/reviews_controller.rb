@@ -1,14 +1,51 @@
 class Public::ReviewsController < ApplicationController
+ before_action :authenticate_customer!, only: [:create]
+
   def index
-    @reviews = Reviews.all
+    @tag_list = Tag.all
+    # お店に紐づいたレビューの表示
+    @shop = Shop.find(params[:shop_id])
+    # 絞り込み機能
+    if params[:latest]
+      @reviews = @shop.reviews.latest
+    elsif params[:old]
+      @reviews = @shop.reviews.old
+    elsif params[:star_count]
+      @reviews = @shop.reviews.star_count
+    else
+      @reviews = @shop.reviews
+    end
   end
 
   def create
-    @review = Review.new(review_params)
-    @review.customer_id = current_customer
-    @review.shop_id =
-    @review.save
-    redirect_to
+    @shop = Shop.find(params[:shop_id])
+    @review = current_customer.reviews.new(review_params)
+    @review.shop_id = @shop.id
+    @tag_list = params[:review][:tag_name].split(nil)
+    if @review.save
+      @review.save_tag(@tag_list)
+      flash[:notice] = "レビューを投稿しました。"
+      # レビューの一覧へ
+      redirect_to shop_reviews_path(@shop)
+    else
+      flash[:alert] = "レビューの投稿に失敗入力内容をご確認いただき、再度お試しください。"
+      @shop = Shop.find(params[:shop_id])
+      render "public/shops/show"
+    end
+  end
+
+  def search
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @reviews = @tag.reviews
+  end
+
+  def show
+    @review = Review.find(params[:id])
+    @shop = Shop.find(params[:shop_id])
+    @comment = Comment.new
+    @comments = @review.comments
+    @review_tags = @review.tags
   end
 
   def edit
@@ -17,17 +54,27 @@ class Public::ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
+    if @review.update(review_params)
+      flash[:notice] = "レビューを更新しました。"
+      redirect_to shop_review_path(review.shop_id, review.id)
+    else
+      flash[:alert] = "レビューの更新に失敗しました。入力内容をご確認いただき、再度お試しください。"
+      render "edit"
+    end
   end
 
   def destroy
     @review = Review.find(params[:id])
+    @review.destroy
+    flash[:notice] = "レビューを削除しました。"
+    redirect_to customer_path(current_customer)
   end
 
 
   private
 
   def review_params
-    params.require(:review).permit(:title, :content, :review_image)
+    params.require(:review).permit(:customer_id, :shop_id, :title, :content, :review_image, :rate)
   end
 
 end

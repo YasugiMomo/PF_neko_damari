@@ -1,2 +1,28 @@
-<h1>Public::Shops#show</h1>
-<p>Find me in app/views/public/shops/show.html.erb</p>
+<section class="section mt-6">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-5">
+        <div class="card mb-6">
+          <header class="card-header">
+            <p class="card-header-title">
+              <%= @shop.name %>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content average-score">
+              <div class="star-ratubg mb-2">
+                <div class="average-review-rating" data-score=<%= @shop.avg_rate %>></div>
+                <%= render 'average' %>
+              <div class="average-score-display ml-3 pt-2">
+                <%= @shop.avg_rate %>点(<%= link_to @shop.reviews.count, shop_review_path(@shop) %>件のレビュー)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= render 'form', review: @review, shop: @shop %>
+    </div>
+  </div>
+</section>
+
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_10_174436) do
+ActiveRecord::Schema.define(version: 2022_05_19_044622) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "nickname"
-    t.boolean "is_status"
+    t.string "nickname", null: false
+    t.boolean "is_status", default: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
     t.integer "shop_id", null: false
     t.string "title"
     t.text "content"
-    t.float "score", default: 0.0, null: false
+    t.float "rate", default: 0.0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_reviews_on_customer_id"
@@ -97,10 +97,27 @@ ActiveRecord::Schema.define(version: 2022_05_10_174436) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tagmaps", force: :cascade do |t|
+    t.integer "review_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_tagmaps_on_review_id"
+    t.index ["tag_id"], name: "index_tagmaps_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "tag_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "customers"
   add_foreign_key "comments", "reviews"
   add_foreign_key "reviews", "customers"
   add_foreign_key "reviews", "shops"
+  add_foreign_key "tagmaps", "reviews"
+  add_foreign_key "tagmaps", "tags"
 end

@@ -71,3 +71,11 @@ gem 'google_places'
 group :production do
   gem 'mysql2'
 end
+
+# ログの確認
+gem 'pry-rails'
+
+gem 'google_drive'
+gem "google-apis-sheets_v4"
+
+gem 'i18n_generators'

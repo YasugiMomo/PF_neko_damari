@@ -1,2 +1,13 @@
-<h1>Public::Reviews#edit</h1>
-<p>Find me in app/views/public/reviews/edit.html.erb</p>
+<p>レビュー編集画面</p>
+
+<%= form_with model: @review, url: shop_review_path(@review.id), method: :patch do |f| %>
+
+  <h4>タイトル</h4>
+  <%= f.text_field :title %>
+
+  <h4>レビュー</h4>
+  <%= f.text_area :content %>
+
+  <%= f.submit '保存' %>
+
+<% end %>
