@@ -1,19 +1,9 @@
 class Admin::ReviewsController < ApplicationController
 
   def index
+    @customer = (params[:customer_id])
+    @reviews = @customer.reviews
     @tag_list = Tag.all
-    # お店に紐づいたレビューの表示
-    @shop = Shop.find(params[:shop_id])
-    # 絞り込み機能
-    if params[:latest]
-      @reviews = @shop.reviews.latest
-    elsif params[:old]
-      @reviews = @shop.reviews.old
-    elsif params[:star_count]
-      @reviews = @shop.reviews.star_count
-    else
-      @reviews = @shop.reviews
-    end
   end
 
   def show

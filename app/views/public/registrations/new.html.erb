@@ -1,34 +1,44 @@
-<h2><%= t('.sign_up') %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label t('.nickname') %><br />
-    <%= f.text_field :nickname, autofocus: true %>
+<div class="row">
+  <div class="col-sm-8 mt-4 px-sm-0 offset-sm-1">
+    <h2><%= t('.sign_up') %></h2>
   </div>
 
-  <div class="field">
-    <%= f.label t('.email') %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
+  <div class="row mx-auto">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="col">
+      <div class="field">
+        <%= f.label t('.nickname')%>
+        <%= f.text_field :nickname, placeholder: "20文字以内", :size =>"50*50", autofocus: true, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label t('.password') %>
-    <% if @minimum_password_length %>
-    <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+      <div class="field pt-2">
+        <%= f.label t('.email') %>
+        <%= f.email_field :email, placeholder: "sample@example.com", autocomplete: "email", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label t('.password_confirmation') %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <div class="field pt-2">
+        <%= f.label t('.password') %>
+        <% if @minimum_password_length %>
+        <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit t('.sign_up') %>
-  </div>
-<% end %>
+      <div class="field pt-2">
+        <%= f.label t('.password_confirmation') %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
 
-<%= render "public/shared/links" %>
+      <div class="row actions justify-content-center pt-2">
+        <%= f.submit t('.sign_up'), class: "btn btn-success" %>
+      </div>
+
+    <% end %>
+    </div>
+      <div class="col-sm-8 mt-4 px-sm-0 offset-sm-2">
+        <span>既に登録済みの方は<%= render "public/shared/links" %></span>
+      </div>
+  </div>
+</div>
+

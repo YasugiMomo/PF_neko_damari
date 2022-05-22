@@ -1,2 +1,26 @@
-<h1>Admin::Customers#show</h1>
-<p>Find me in app/views/admin/customers/show.html.erb</p>
+<div class="row">
+  <!--会員情報-->
+  <div class="left-section">
+    <p><%= @customer.nickname %>さんの会員詳細</p>
+    <table>
+    <tr><%= image_tag @customer.get_profile_image(200,200) %></tr>
+    <tr>
+      <th>ニックネーム</th>
+      <td><%= @customer.nickname %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td></td>
+    </tr>
+  </table>
+
+  <div class='row'>
+      <!--編集ページへのリンク-->
+      <%= link_to "編集する", edit_customer_path(@customer.id) %>
+  </div>
+  </div>
+  <!--レビュー一覧-->
+  <div class="right-section">
+    
+  </div>
+</div>

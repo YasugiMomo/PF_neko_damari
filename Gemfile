@@ -31,6 +31,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # ログの確認
+  gem 'pry-rails'
 end
 
 group :development do
@@ -72,10 +75,10 @@ group :production do
   gem 'mysql2'
 end
 
-# ログの確認
-gem 'pry-rails'
 
 gem 'google_drive'
 gem "google-apis-sheets_v4"
 
 gem 'i18n_generators'
+
+gem 'kaminari','~> 1.2.1'

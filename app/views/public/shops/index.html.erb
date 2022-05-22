@@ -1,14 +1,20 @@
 <section class="section mt-6">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-5">
+    <div class="col">
+      <div class="col">
         <% @shops.each do |shop| %>
-          <div class="card mb-6">
-            <header class="card-header">
-              <p class="card-header-title">
-                <%= shop.name %>
-              </p>
-            </header>
+          <div class="col-8 card">
+            <div class="row card-header">
+              <div class="coi-2 header-image">
+                <%= image_tag shop.get_shop_image(100,100) %>
+              </div>
+              <div class="col-6">
+                <p class="card-header-title">
+                  <%= shop.name %><br>
+                  <%= shop.address %>
+                </p>
+              </div>
+            </div>
             <div class="card-content">
               <div class="content">
                 <div class="content average-score">
@@ -21,7 +27,7 @@
                 </div>
               </div>
             </div>
-            <footer class="card-footer">
+            <footer class="col card-footer">
               <%= link_to shop_reviews_path(shop), class: "button card-footer-item" do %>
                 レビューを見る
               <% end %>
