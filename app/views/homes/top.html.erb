@@ -1,10 +1,17 @@
-<div class="row">
-  <div class="col">
-    <h3>猫カフェレビューサイト「ネコだまり」へようこそ！</h3>
-      <P>
-        ゲストログインをすることで、会員登録なしでもレビューの閲覧が可能です。<br>
-        ※レビューを投稿するには、会員登録が必要です。※
-      </P>
-      <%= link_to "ゲストログイン", customers_guest_sign_in_path, method: :post, class: "btn btn-success" %>
+<div class-"container">
+  <div class="row">
+    <div class="col">
+      <h3>猫カフェレビューサイト「ネコだまり」へようこそ！</h3>
+        <P>
+          ゲストログインをすることで、会員登録なしでもレビューの閲覧が可能です。<br>
+          ※レビューを投稿するには、会員登録が必要です。※
+        </P>
+        <div class="row">
+          <%= link_to "ゲストログイン", customers_guest_sign_in_path, method: :post, class: "btn btn-success" %>
+        </div>
+        <div class="row">
+          管理者の方は<%= link_to "こちら", admin_session_path %>
+        </div>
+    </div>
   </div>
 </div>
