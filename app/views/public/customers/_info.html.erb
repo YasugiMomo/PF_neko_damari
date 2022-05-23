@@ -1,17 +1,21 @@
 
-  <table>
-    <tr><%= image_tag @customer.get_profile_image(200,200) %></tr>
+  <table class='table'>
+    <tr><%= image_tag customer.get_profile_image(200,200) %></tr>
     <tr>
       <th>ニックネーム</th>
-      <td><%= @customer.nickname %></td>
+      <td><%= customer.nickname %></td>
     </tr>
     <tr>
-      <th></th>
-      <td></td>
+      <th>intoroduction</th>
+      <td><%= customer.introduction %></td>
     </tr>
   </table>
 
   <div class='row'>
       <!--編集ページへのリンク-->
-      <%= link_to "編集する", edit_customer_path(@customer.id) %>
+      <% if current_customer == customer %>
+        <%= link_to edit_customer_path(customer), class: "btn btn-outline-secondary btn-block edit_customer_#{customer.id}" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% end %>
   </div>

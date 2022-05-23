@@ -15,29 +15,29 @@
             <% end %>
           </li>
           <li>
-            <%= link_to shops_path do %>
+            <%= link_to shops_path, class: 'nav-link text-white border rounded mx-2 bg-info' do %>
              <i class="fas fa-paw"></i> 猫カフェ一覧
             <% end %>
           </li>
           <li>
-            <%= link_to destroy_customer_session_path, method: :delete do %>
+            <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-white border rounded mx-2 bg-info' do %>
               <i class="fas fa-sign-out-alt"></i> ログアウト
             <% end %>
           </li>
         <!--管理者がログインした場合-->
         <% elsif admin_signed_in? %>
           <li>
-            <%= link_to admin_shops_path do %>
+            <%= link_to admin_shops_path, class: 'nav-link text-white border rounded mx-2 bg-info' do %>
              <i class="fas fa-paw"></i> 猫カフェ一覧
             <% end %>
           </li>
           <li>
-            <%=  link_to admin_customers_path do %>
+            <%=  link_to admin_customers_path, class: 'nav-link text-white border rounded mx-2 bg-info' do %>
             <i class="fas fa-users"></i>会員一覧
             <% end %>
           </li>
           <li>
-            <%= link_to destroy_admin_session_path, method: :delete do %>
+            <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-white border rounded mx-2 bg-info' do %>
             <i class="fas fa-sign-out-alt"></i>ログアウト
             <% end %>
           </li>

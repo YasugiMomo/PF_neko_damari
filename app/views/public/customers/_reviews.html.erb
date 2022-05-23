@@ -1,18 +1,40 @@
 
-  <P>あなたのレビュー</P>
-  <table>
+  <h4><%= customer.nickname %>さんのレビュー</h4>
+  <table class="table">
     <tr>
-      <th>猫カフェ</th>
+      <th></th>
       <th>評価</th>
       <th>タイトル</th>
       <th></th>
     </tr>
     <% reviews.each do |review| %>
     <tr>
-      <td><%= link_to review.shop.name, shop_path(review.shop_id) %></td>
-      <td><%= review.rate %></td>
-      <td><%= link_to review.title, shop_review_path(review.shop_id, review.id) %></td>
+      <td>
+        <%= image_tag review.get_review_image(100,100) %><br>
+        <%= link_to review.shop.name, shop_path(review.shop_id) %>
+      </td>
+      <td>
+        <%= review.rate %>点
+      　<p id="star-rate-<%= review.id %>"></p>
+      </td>
+      <td>
+        <%= link_to review.title, shop_review_path(review.shop_id, review.id) %><br>
+        <%= localize review.created_at %>
+      </td>
       <td><p><%= link_to "#{review.comments.count} コメント", shop_review_path(review.shop_id, review.id) %></p></td>
     </tr>
+
+      <script>
+        $('#star-rate-<%= review.id %>').raty({
+          size: 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          starHalf: '<%= asset_path('star-half.png') %>',
+          readOnly: true,
+          score: <%= review.rate %>,
+        });
+      </script>
     <% end %>
   </table>
+
+
