@@ -4,6 +4,7 @@ class Review < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :tagmaps, dependent: :destroy
   has_many :tags, through: :tagmaps
+  has_many :favorite, dependent: :destroy
 
   has_one_attached :review_image
 
@@ -11,6 +12,11 @@ class Review < ApplicationRecord
   validates :rate, numericality: {
     less_than_or_equal_to: 5,
     greater_than_or_equal_to: 1}, presence: true
+
+  # いいね機能
+  def favorited_by?(customer)
+    favorites.exists?(customer_id: customer.id)
+  end
 
   # 絞り込み機能
   scope :latest, -> {order(created_at: :desc)}

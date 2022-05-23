@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'favorites/create'
+    get 'favorites/destroy'
+  end
   root to: 'homes#top'
   get '/home/about' => 'homes#about', as: "about"
 
@@ -22,12 +26,14 @@ Rails.application.routes.draw do
 
   # 顧客用
   scope module: :public do
+    get 'shops/search' => 'shops#search'
     get '/customer/out' => 'public/customers#out', as: 'out'
     patch '/customer/quit' => 'public/customers#quit', as: 'quit'
     resources :customers, only: [:show, :edit, :update]
     resources :shops, only: [:index, :show] do
       resources :reviews, except: [:new] do
         resource :comments, only: [:create]
+        resource :favorites, only: [:create, :destroy]
       end
     end
     resources :comments, only: [:destroy]
