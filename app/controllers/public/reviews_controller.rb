@@ -54,14 +54,22 @@ class Public::ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
+    if params[:review][:review_image_ids]
+      params[:review][:review_image_ids].each do |image_id|
+        review_image = @review.review_images.find(image_id)
+        review_image.purge
+      end
+    end
+
     if @review.update(review_params)
       flash[:notice] = "レビューを更新しました。"
-      redirect_to shop_review_path(review.shop_id, review.id)
+      redirect_to shop_review_path(@review.shop_id, @review)
     else
       flash[:alert] = "レビューの更新に失敗しました。入力内容をご確認いただき、再度お試しください。"
       render "edit"
     end
   end
+
 
   def destroy
     @review = Review.find(params[:id])
@@ -74,7 +82,7 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:customer_id, :shop_id, :title, :content, :review_image, :rate)
+    params.require(:review).permit(:customer_id, :shop_id, :title, :content, :rate, review_images: [])
   end
 
 end

@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-6 mx-auto mt-4">
-      <%= form_with model: @review, url: shop_review_path(@review.id), method: :patch do |f| %>
+      <%= form_with model: @review, url: shop_review_path(@review), method: :patch do |f| %>
 
         <div class="field">
           <%= f.label "タイトル" %><br />
@@ -18,9 +18,17 @@
         </div>
 
         <div class="field my-4">
-          <div><%= f.label "画像を投稿する" %></div>
-          <%= f.file_field :profile_image, placeholder: "レビュー画像", accept: "image/*" %>
+          <%= f.label :images, '画像' %>
+          <%= f.file_field :images, multiple: true, accept: "image/*" %>
         </div>
+
+        <% if @review.review_images.present? %>
+          <p>現在登録されている画像（削除する場合は、チェックしてください）</p>
+          <% @review.review_images.each do |image| %>
+            <%= f.check_box :review_image_ids, {multiple: true}, image.id, false %>
+            <%= image_tag image, size: "200x200" %>
+          <% end %>
+        <% end %>
 
         <div class="row justify-content-center">
           <%= f.submit '保存', class: "btn btn-success" %>

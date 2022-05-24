@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   scope module: :public do
     get 'shops/search' => 'shops#search'
     get '/customers/out' => '/public/customers#out'
-    patch '/customer/quit' => 'public/customers#quit', as: 'quit'
+    patch '/customer/quit' => '/public/customers#quit'
     resources :customers, only: [:show, :edit, :update]
     resources :shops, only: [:index, :show] do
       resources :reviews, except: [:new] do

@@ -6,20 +6,20 @@ class Review < ApplicationRecord
   has_many :tags, through: :tagmaps
   has_many :favorites, dependent: :destroy
 
-  has_one_attached :review_image
+  has_many_attached :review_images
 
   validates :title, :content, :rate, presence: true
   validates :rate, numericality: {
     less_than_or_equal_to: 5,
     greater_than_or_equal_to: 1}, presence: true
 
-  def get_review_image(width, height)
-    unless review_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      review_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    end
-    review_image.variant(resize_to_limit: [width, height]).processed
-  end
+  # def get_review_images(width, height)
+  #   unless review_images.attached?
+  #     file_path = Rails.root.join('app/assets/images/no_image.jpg')
+  #     review_images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  #   end
+  #   review_images.variant(resize_to_limit: [width, height]).processed
+  # end
 
   # いいね機能
   def favorited_by?(customer)

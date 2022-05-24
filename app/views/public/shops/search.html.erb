@@ -1,5 +1,10 @@
 <div class="container">
-  <% @shops.each do |shop| %>
-    <%= shop.name %>
-  <% end %>
+  <div class="row">
+    <div class="col-10 mt-4">
+     <h2>検索結果</h2>
+    </div>
+
+    <%= render 'index', shops: @shops %>
+
+  </div>
 </div>

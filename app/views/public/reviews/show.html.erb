@@ -36,10 +36,8 @@
       <!--レビューの投稿画像を表示-->
       <div>
         <p>投稿写真：</p><br>
-        <% if @review.review_image.attached? %>
-          <%= image_tag @review.review_image, size: "100×100" %>
-        <% else %>
-          <%= image_tag 'no_image', size: "100x100" %>
+        <% @review.review_images.each do |image| %>
+          <%= image_tag(image, width:100) %>
         <% end %>
       </div>
       <div>
