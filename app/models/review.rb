@@ -4,7 +4,7 @@ class Review < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :tagmaps, dependent: :destroy
   has_many :tags, through: :tagmaps
-  has_many :favorite, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_one_attached :review_image
 

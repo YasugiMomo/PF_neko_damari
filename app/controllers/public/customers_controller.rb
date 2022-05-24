@@ -1,19 +1,19 @@
 class Public::CustomersController < ApplicationController
 
   def show
-    @customer = current_customer
+    @customer = Customer.find(params[:id])
     @reviews = @customer.reviews
   end
 
   def edit
-    @customer = current_customer
+    @customer = Customer.find(params[:id])
   end
 
   def update
-    @customer = current_customer
+    @customer = Customer.find(params[:id])
     @customer.update(customer_params)
     if flash[:notice] = "会員情報を更新しました。"
-      redirect_to customer_path(customer.id)
+      redirect_to customer_path(@customer)
     else
       flash[:alert] = "会員情報の更新に失敗しました。入力内容をご確認いただき、再度お試しください。"
       render "edit"

@@ -1,13 +1,17 @@
 
   <table class='table'>
-    <tr><%= image_tag customer.get_profile_image(200,200) %></tr>
+    <tr><%= image_tag customer.get_profile_image(100,100) %></tr>
     <tr>
-      <th>ニックネーム</th>
+      <th>ニックネーム：</th>
       <td><%= customer.nickname %></td>
     </tr>
     <tr>
-      <th>intoroduction</th>
+      <th>intoroduction：</th>
       <td><%= customer.introduction %></td>
+    </tr>
+    <tr>
+      <th>レビュー数：</th>
+      <td><%= customer.reviews.count %>件</td>
     </tr>
   </table>
 

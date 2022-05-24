@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 mt-4 px-sm-0 offset-sm-1">
-      <h2>マイページ</h2>
+    <div class="col-10 mb-2">
+      <h2>会員詳細</h2>
     </div>
 
       <div class="col-4 customer-info">
         <%= render 'info', customer: @customer %>
       </div>
-      <div class="col-8 customer_reviews pt-4">
+      <div class="col-8 customer_reviews">
         <%= render 'reviews', customer: @customer, shop: @shop, reviews: @reviews %>
       </div>
   </div>
