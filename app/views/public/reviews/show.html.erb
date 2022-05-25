@@ -1,12 +1,32 @@
-
 <div class="container">
+  <div class="row">
 
+    <div class="col-8 card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <%= image_tag @shop.get_shop_image(100,100) %>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%= @shop.name %></h5>
+            <p class="card-text"><%= @shop.address %></p>
+            <div class="card-content average-score">
+                <div class="average-review-rating" data-score=<%= @shop.avg_rate %>></div>
+                <%= render 'public/shops/average' %>
+                <div class="average-score-display">
+                  <%= @shop.avg_rate %>点(<%= link_to @shop.reviews.count, shop_review_path(@shop) %>件のレビュー)
+                </div>
+            </div>
+          </div>
 
-  <div class="shop-section">
-    <!--お店の情報-->
-    <p><%= @shop.name %></p>
-    <p><%= @shop.address %></p>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
 
   <div class="review-details-section">
     <p>レビュー詳細</p>
@@ -82,7 +102,6 @@
     <% end %>
   </div>
 
-</div>
 
 
 

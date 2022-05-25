@@ -1,43 +1,33 @@
 <div class="container">
-　<div class="row">
-　  <div class="col-10">
-　    <h2><%= link_to @shop.name, shop_path(@shop) %>のレビュー一覧</h2>
-　  </div>
+  <div class="row">
+      <div class="col-10">
+        <h2><%= link_to @shop.name, shop_path(@shop) %>のレビュー一覧</h2>
+      </div>
 
-　  <div class="col-4">
-　    <%= link_to '新しい順', shop_reviews_path(latest: "true") %>|
-      <%= link_to '古い順', shop_reviews_path(old: "true") %>|
-      <%= link_to '評価の高い順', shop_reviews_path(star_count: "true") %>
-　  </div>
+        <% @reviews.each do |review| %>
+          <div class="col-6 card mx-auto">
+            <div class="row">
+              <div class="col-3 card-review-customer text-center">
+                <%= image_tag review.customer.get_profile_image(100,100) %><br>
+                <%= review.customer.nickname %>
+              </div>
+              <div class="col-6 card-review-detail">
+                <div class="row">
+      　           <p id="star-rate-<%= review.id %>"></p>
+      　           <%= review.rate %>点
+                </div>
+                <div>
+                  <p>タイトル：<%= review.title %></p>
+                </div>
+                <div>
+                  <p>レビュー：<%= review.content %></p>
+                </div>
 
-　  <div class="row">
-　    <% @reviews.each do |review| %>
-　      <div class="col card">
-　        <div class="row card-body">
-　          <div class="col-4 left">
-　            <%= image_tag review.customer.get_profile_image(100,100) %><br>
-　            <%= review.customer.nickname %>
-　          </div>
-　          <div class="col-8 right">
-　            <%= review.title %><br>
-　            <%= review.content %>
-　          </div>
+              </div>
+            </div>
+           <!--星を表示する-->
+　         <%= render 'star', review: review %>
 　        </div>
-
-　        <div class="col-4 star-rating">
-　          <%= review.rate %>点
-      　      <p id="star-rate-<%= review.id %>"></p>
-　        </div>
-
-　        <div class="row card-footer">
-　          <%= link_to "コメントする", shop_review_path(review.shop_id, review) %>
-　        </div>
-　      </div>
-
-　       <!--星を表示する-->
-　       <%= render 'star', review: review %>
-      <% end %>
-　  </div>
-　</div>
+        <% end %>
+  </div>
 </div>
-
