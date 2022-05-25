@@ -1,34 +1,8 @@
-<div class="container">
-  <div class-"row">
-    <div class="col-10 my-4">
-      <h2><%= link_to @shop.name, shop_path(@shop) %>のレビュー</h2>
-    </div>
-
-    <div class="col-8 tag-search border mx-auto">
-      <div class="row border-bottom justify-content-center">
-        <p>タグで検索</p>
-      </div>
-      <div class="row">
-        <% @tag_list.each do |list| %>
-          <p class="mx-2 mt-2">
-            <%= link_to list.tag_name, tag_reviews_path(list.id), class: "border-bottom" %>
-            <%= "(#{list.reviews.count})" %>
-          </p>
-        <% end %>
-      </div>
-    </div>
-
     <div class="col-8 reviews-index mx-auto">
-      <div class="row review-sort">
-        <div class="col mx-auto mt-4 mb-2">
-          <%= link_to '新しい順', shop_reviews_path(latest: "true") %>|
-          <%= link_to '古い順', shop_reviews_path(old: "true") %>|
-          <%= link_to '評価の高い順', shop_reviews_path(star_count: "true") %>
-        </div>
       </div>
-      <% @reviews.each do |review| %>
+      <% reviews.each do |review| %>
       <div class="row">
-        <div class="col card mb-2">
+        <div class="col-8 card mb-2 mx-auto">
           <div class="row mt-2">
             <div class="col-3 review-customer text-center">
               <%= image_tag review.customer.get_profile_image(100,100) %><br>
@@ -75,5 +49,3 @@
       </div>
       <% end %>
     </div>
-  </div>
-</div>

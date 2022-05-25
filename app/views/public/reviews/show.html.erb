@@ -1,107 +1,108 @@
 <div class="container">
-  <div class="row">
-
-    <div class="col-8 card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <%= image_tag @shop.get_shop_image(100,100) %>
+  <div class-"row">
+    <div class="col-10 my-4">
+      <h2><%= link_to @shop.name, shop_path(@shop) %>のレビュー</h2>
+    </div>
+    <div class="col-8 card mx-auto">
+      <div class="row">
+        <div class="col-3 review-customer text-center">
+          <%= image_tag @review.customer.get_profile_image(100,100) %><br>
+　        <%= @review.customer.nickname %>
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title"><%= @shop.name %></h5>
-            <p class="card-text"><%= @shop.address %></p>
-            <div class="card-content average-score">
-                <div class="average-review-rating" data-score=<%= @shop.avg_rate %>></div>
-                <%= render 'public/shops/average' %>
-                <div class="average-score-display">
-                  <%= @shop.avg_rate %>点(<%= link_to @shop.reviews.count, shop_review_path(@shop) %>件のレビュー)
-                </div>
-            </div>
+        <div class="col-5">
+          <p><%= @review.title %></p>
+          <div class="row rating-star">
+            <p id="star-rate-<%= @review.id %>"></p>
+            <%= @review.rate %>点
           </div>
-
         </div>
       </div>
+      <div class="row">
+        <div class="col-8 mx-4 my-2">
+          <%= @review.content %>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-2 favorite">
+          <% if @review.favorited_by?(current_customer) %>
+            <p>
+              <%= link_to shop_review_favorites_path(@review.shop_id, @review), method: :delete do %>
+                <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+                <%= @review.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to shop_review_favorites_path(@review.shop_id, @review), method: :post do %>
+                <i class="fas fa-heart" aria-hidden="true"></i>
+                <%= @review.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+        </div>
+        <div class="col-3 comment-link">
+          <%= link_to @review.comments.count, shop_review_path(@review.shop_id, @review) %>件のコメント
+        </div>
+      </div>
+      <div class="row justify-content-end mr-5">
+          <% if @review.customer == current_customer %>
+            <%= link_to "編集する", edit_shop_review_path(@review), class: "btn btn-success mr-3" %>
+            <%= link_to "削除する", shop_review_path(@review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+          <% end %>
+      </div>
+      <!--星を表示する-->
+　    <%= render 'star', review: @review %>
     </div>
+    <div class="row justify-content-center">
+      <div class="col-8 review-image mt-2">
+        <p>投稿写真：</p>
+          <% @review.review_images.each do |image| %>
+            <%= image_tag(image, width:100) %>
+          <% end %>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-8 comment-new">
+        <%= form_with model: [@shop, @review, @comment] do |f| %>
+          <%= f.label "コメント：" %><br>
+          <%= f.text_area :comment, autofocus: true, class: "form-control" %><br>
+          <div class="row justify-content-center">
+            <%= f.submit "コメントする",  class: "btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-2">
+      <div class="col-8">
+        <P>コメント一覧</P>
+        <table class="table table-border">
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% @comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= image_tag comment.customer.get_profile_image(100,100) %><br>
+              <%= comment.customer.nickname %>
+            </td>
+            <td><%= comment.comment %></td>
+            <td>
+              <% if comment.customer == current_customer %>
+                <%= link_to "削除する", comment_path(comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
-
-
-
-
-  <div class="review-details-section">
-    <p>レビュー詳細</p>
-
-    <p>評価：<%= @review.rate %>点 </p>
-    <div id="star-rate-<%= @review.id %>",  class="mb-2"></div>
-    <script>
-          $('#star-rate-<%= @review.id %>').raty({
-            size: 36,
-            starOff:  '<%= asset_path('star-off.png') %>',
-            starOn : '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            half: true,
-            readOnly: true,
-            score: <%= @review.rate %>,
-        });
-    </script>
-    <div class="review-section">
-      <div>
-        タイトル：
-        <%= @review.title %>
-      </div>
-      <div>
-        レビュー:
-        <%= @review.content %>
-      </div>
-      <!--レビューの投稿画像を表示-->
-      <div>
-        <p>投稿写真：</p><br>
-        <% @review.review_images.each do |image| %>
-          <%= image_tag(image, width:100) %>
-        <% end %>
-      </div>
-      <div>
-        <% @review_tags.each do |tag| %>
-          <%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
-          <%= "(#{tag.reviews.count})" %>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="action">
-      <% if @review.customer == current_customer %>
-        <%= link_to "編集する", edit_shop_review_path(@review), class: "btn btn-success" %>
-        <%= link_to "削除する", shop_review_path(@review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
-      <% end %>
-    </div>
-
-  </div>
-
-  <div class="comment-index-section">
-    <p>コメント一覧</p>
-    <% @comments.each do |comment| %>
-    <div class="comment-list">
-      <%= comment.customer.nickname %>
-      <%= comment.comment %>
-      <% if comment.customer == current_customer %>
-        <%= link_to "削除する", comment_path(comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
-
-  <div class="comment-section">
-    <!--コメント投稿フォーム-->
-    <%= form_with model: [@shop, @review, @comment] do |f| %>
-
-      <%= f.label "コメント：" %><br>
-      <%= f.text_area :comment %><br>
-
-      <%= f.submit "コメントする" %>
-
-    <% end %>
-  </div>
-
 
 
 
