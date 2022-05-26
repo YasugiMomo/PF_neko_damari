@@ -18,8 +18,8 @@
         </div>
 
         <div class="field my-4">
-          <%= f.label :images, '画像' %>
-          <%= f.file_field :images, multiple: true, accept: "image/*" %>
+          <%= f.label "画像" %>
+          <%= f.file_field :review_images, multiple: true, accept: "image/*" %>
         </div>
 
         <% if @review.review_images.present? %>
