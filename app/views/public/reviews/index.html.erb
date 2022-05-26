@@ -18,62 +18,7 @@
       </div>
     </div>
 
-    <div class="col-8 reviews-index mx-auto">
-      <div class="row review-sort">
-        <div class="col mx-auto mt-4 mb-2">
-          <%= link_to '新しい順', shop_reviews_path(latest: "true") %>|
-          <%= link_to '古い順', shop_reviews_path(old: "true") %>|
-          <%= link_to '評価の高い順', shop_reviews_path(star_count: "true") %>
-        </div>
-      </div>
-      <% @reviews.each do |review| %>
-      <div class="row">
-        <div class="col card mb-2">
-          <div class="row mt-2">
-            <div class="col-3 review-customer text-center">
-              <%= image_tag review.customer.get_profile_image(100,100) %><br>
-　            <%= review.customer.nickname %>
-            </div>
-            <div class="col-5">
-              <p><%= review.title %></p>
-              <div class="row rating-star">
-                <p id="star-rate-<%= review.id %>"></p>
-                <%= review.rate %>点
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-8 mx-4 my-2">
-              <%= review.content %>
-            </div>
-          </div>
-          <div class="row justify-content-end">
-            <div class="col-2 favorite">
-              <% if review.favorited_by?(current_customer) %>
-                <p>
-                  <%= link_to shop_review_favorites_path(review.shop_id, review), method: :delete do %>
-                    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-                    <%= review.favorites.count %> いいね
-                  <% end %>
-                </p>
-              <% else %>
-                <p>
-                  <%= link_to shop_review_favorites_path(review.shop_id, review), method: :post do %>
-                    <i class="fas fa-heart" aria-hidden="true"></i>
-                    <%= review.favorites.count %> いいね
-                  <% end %>
-                </p>
-              <% end %>
-            </div>
-            <div class="col-3 comment-link">
-              <%= link_to review.comments.count, shop_review_path(review.shop_id, review) %>件のコメント
-            </div>
-          </div>
-        </div>
-        <!--星を表示する-->
-　      <%= render 'star', review: review %>
-      </div>
-      <% end %>
-    </div>
+    <%= render 'index', reviews: @reviews %>
+
   </div>
 </div>

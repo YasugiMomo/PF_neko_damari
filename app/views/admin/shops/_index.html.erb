@@ -15,19 +15,14 @@
           <div class="average-review-rating" data-score=<%= shop.avg_rate %>></div>
         </div>
         <div class="col-8 average-score-display">
-          <%= shop.avg_rate %>点（<%= link_to shop.reviews.count, shop_reviews_path(shop.id) %>件のレビュー）
+          <%= shop.avg_rate %>点（<%= link_to shop.reviews.count, admin_shop_reviews_path(shop.id) %>件のレビュー）
         </div>
       </div>
 
       <div class="row card-footer text-center">
-        <div class="col-6">
-          <%= link_to shop_reviews_path(shop), class: "btn card-footer-item" do %>
+        <div class="col-12">
+          <%= link_to admin_shop_reviews_path(shop), class: "btn btn-info card-footer-item" do %>
             レビューを見る
-          <% end %>
-        </div>
-        <div class="col-6">
-          <%= link_to shop_path(shop), class: "btn card-footer-item" do %>
-            レビューを書く
           <% end %>
         </div>
       </div>

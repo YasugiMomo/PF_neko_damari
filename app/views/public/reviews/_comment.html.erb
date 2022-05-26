@@ -1,0 +1,39 @@
+    <div class="row justify-content-center mt-4">
+      <div class="col-8 comment-new">
+        <%= form_with model: [shop, review, comment] do |f| %>
+          <%= f.label "コメント：" %><br>
+          <%= f.text_area :comment, autofocus: true, class: "form-control" %><br>
+          <div class="row justify-content-center">
+            <%= f.submit "コメントする",  class: "btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-2">
+      <div class="col-8">
+        <P>コメント一覧</P>
+        <table class="table table-border">
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= image_tag comment.customer.get_profile_image(100,100) %><br>
+              <%= comment.customer.nickname %>
+            </td>
+            <td><%= comment.comment %></td>
+            <td>
+              <% if comment.customer == current_customer %>
+                <%= link_to "削除する", comment_path(comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+              <% elsif admin_signed_in? %>
+                <%= link_to "削除する", admin_comment_path(comment), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>

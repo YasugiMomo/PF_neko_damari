@@ -19,6 +19,10 @@ class Admin::CustomersController < ApplicationController
     redirect_to customer_path(customer.id)
   end
 
+  def search
+    @customers = Customer.looks(params[:word]).page(params[:page]).per(10)
+  end
+
   private
 
   def customer_params

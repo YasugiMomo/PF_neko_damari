@@ -12,6 +12,11 @@ class Customer < ApplicationRecord
 
   validates :nickname, presence: true
 
+   # 検索機能
+  def self.looks(word)
+    @customer = Customer.where("nickname LIKE?","%#{word}%")
+  end
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

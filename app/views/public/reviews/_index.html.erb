@@ -23,20 +23,22 @@
           </div>
           <div class="row justify-content-end">
             <div class="col-2 favorite">
-              <% if review.favorited_by?(current_customer) %>
-                <p>
-                  <%= link_to shop_review_favorites_path(review.shop_id, review), method: :delete do %>
-                    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-                    <%= review.favorites.count %> いいね
-                  <% end %>
-                </p>
-              <% else %>
-                <p>
-                  <%= link_to shop_review_favorites_path(review.shop_id, review), method: :post do %>
-                    <i class="fas fa-heart" aria-hidden="true"></i>
-                    <%= review.favorites.count %> いいね
-                  <% end %>
-                </p>
+              <% if customer_signed_in? %>
+                <% if review.favorited_by?(current_customer) %>
+                  <p>
+                    <%= link_to shop_review_favorites_path(review.shop_id, review), method: :delete do %>
+                      <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+                      <%= review.favorites.count %> いいね
+                    <% end %>
+                  </p>
+                <% else %>
+                  <p>
+                    <%= link_to shop_review_favorites_path(review.shop_id, review), method: :post do %>
+                      <i class="fas fa-heart" aria-hidden="true"></i>
+                      <%= review.favorites.count %> いいね
+                    <% end %>
+                  </p>
+                <% end %>
               <% end %>
             </div>
             <div class="col-3 comment-link">
@@ -45,7 +47,7 @@
           </div>
         </div>
         <!--星を表示する-->
-　      <%= render 'star', review: review %>
+　      <%= render '/public/reviews/star', review: review %>
       </div>
       <% end %>
     </div>

@@ -1,2 +1,40 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<div class="contaniner">
+  <div class="row">
+    <div class="col-10 my-4">
+      <h2><%= @customer.nickname %>さんの会員情報編集</h2>
+    </div>
+
+    <div class="row mx-auto">
+      <div class="col">
+        <%= form_with model: @customer, url: admin_customer_path(@customer.id), method: :patch, local: true do |f| %>
+        <table class="table table-bordered">
+          <tr>
+            <th>会員ID</th>
+            <td><%= @customer.id %></td>
+          </tr>
+          <tr>
+            <th>ニックネーム</th>
+            <td><%= @customer.nickname %></td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><%= @customer.email %></td>
+          </tr>
+          <tr>
+            <th>会員ステータス</th>
+            <td>
+              <%= f.radio_button :is_status, :false, checked: true %>
+              <%= f.label :is_status, "有効", {value: :false, style: "display: inline-block;"} %>
+              <%= f.radio_button :is_status, :true %>
+    　         <%= f.label :is_status, "退会", {value: :true, style: "display: inline-block;"} %>
+            </td>
+          </tr>
+        </table>
+        <div class="row justify-content-center">
+          <%= f.submit "変更を保存", class: "btn btn-sm btn-success" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
