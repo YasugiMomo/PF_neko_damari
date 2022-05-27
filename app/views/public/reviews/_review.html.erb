@@ -18,25 +18,8 @@
         </div>
       </div>
       <div class="row justify-content-end">
-        <div class="col-2 favorite">
-          <% if customer_signed_in? %>
-            <% if review.favorited_by?(current_customer) %>
-              <p>
-                <%= link_to shop_review_favorites_path(review.shop_id, review), method: :delete do %>
-                  <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-                  <%= review.favorites.count %> いいね
-                <% end %>
-              </p>
-            <% else %>
-              <p>
-                <%= link_to shop_review_favorites_path(review.shop_id, review), method: :post do %>
-                  <i class="fas fa-heart" aria-hidden="true"></i>
-                  <%= review.favorites.count %> いいね
-                <% end %>
-              </p>
-            <% end %>
-          <% end %>
-        </div>
+        <div id="review_<%= review.id %>"><%= render '/public/favorites/favorite-btn', review: @review %></div>
+
         <div class="col-3 comment-link">
           <%= link_to review.comments.count, shop_review_path(review.shop_id, review) %>件のコメント
         </div>
@@ -45,7 +28,7 @@
           <% if review.customer == current_customer %>
             <%= link_to "編集する", edit_shop_review_path(review), class: "btn btn-success mr-3" %>
             <%= link_to "削除する", shop_review_path(review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
-          <% elsif %>
+          <% elsif admin_signed_in? %>
             <%= link_to "削除する", admin_shop_review_path(review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
           <% end %>
       </div>
@@ -56,7 +39,7 @@
       <div class="col-8 review-image mt-2">
         <p>投稿写真：</p>
           <% review.review_images.each do |image| %>
-            <%= image_tag image, width:100, height: 100 %>
+            <%= image_tag image, width:200, height: 200, class: "border mb-2" %>
           <% end %>
       </div>
     </div>

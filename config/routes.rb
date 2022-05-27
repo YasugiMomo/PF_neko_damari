@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   scope module: :public do
     get 'shops/search' => 'shops#search'
     get '/customers/out' => '/public/customers#out'
-    patch '/customer/quit' => '/public/customers#quit'
+    patch '/customers/quit' => '/public/customers#quit'
     resources :customers, only: [:show, :edit, :update]
     resources :shops, only: [:index, :show] do
       resources :reviews, except: [:new] do
@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     get 'shops/search' => 'shops#search'
     get 'customers/search' => 'customers#search'
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :shops, only: [:index, :show] do
+    resources :shops, only: [:index] do
       resources :reviews, only: [:index, :show, :destroy] do
         resource :comments, only: [:create]
       end

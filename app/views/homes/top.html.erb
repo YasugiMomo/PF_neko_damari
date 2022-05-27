@@ -1,14 +1,11 @@
 <div class-"container">
   <div class="row text-center justify-content-center">
     <div class="col-8 my-4">
-       <h3>猫カフェレビューサイト「ネコだまり」へようこそ！</h3>
-       <div class="top-image">
-
-       </div>
-        <P>
-          ゲストログインをすることで、会員登録なしでもレビューの閲覧が可能です。<br>
-          ※レビューを投稿するには、会員登録が必要です。※
-        </P>
+      <h3 class="mb-4">猫カフェレビューサイト「ネコだまり」へようこそ！</h3>
+      <div class="top-image">
+        <%= image_tag 'top.jpeg', :size => '600x400' %>
+        <p></p>
+      </div>
     </div>
     <div class="col-8 my-4">
       <%= link_to "ゲストログイン(閲覧用)", customers_guest_sign_in_path, method: :post, class: "btn btn-info" %>

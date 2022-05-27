@@ -1,12 +1,14 @@
 
+  <div class="profile-image offset-2 mb-2">
+    <%= image_tag customer.get_profile_image(200,200), class: "border" %>
+  </div>
   <table class='table'>
-    <tr><%= image_tag customer.get_profile_image(100,100) %></tr>
     <tr>
       <th>ニックネーム：</th>
       <td><%= customer.nickname %></td>
     </tr>
     <tr>
-      <th>intoroduction：</th>
+      <th>プロフィール：</th>
       <td><%= customer.introduction %></td>
     </tr>
     <tr>

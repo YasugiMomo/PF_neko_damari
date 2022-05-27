@@ -13,4 +13,20 @@
  *= require_tree .
  *= require_self
  */
- 
+header{
+  background-color: #ffb6b9;
+}
+
+/*body{*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  background-color: rgba(250,227,217,0.5);*/
+/*}*/
+
+footer{
+  width: 100%;
+  /* 以下 背景色やテキストカラーなどはお好みで指定してください */
+  background: #8ac6d1;
+  color: #fff;
+  text-align: center;
+}

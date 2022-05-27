@@ -27,7 +27,7 @@ class Public::ShopsController < ApplicationController
   end
 
   def search
-    @shops = Shop.looks(params[:word])
+    @shops = Shop.looks(params[:word]).page(params[:page]).per(5)
   end
 
 

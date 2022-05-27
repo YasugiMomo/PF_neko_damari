@@ -1,0 +1,18 @@
+
+    <% if customer_signed_in? %>
+      <% if review.favorited_by?(current_customer) %>
+        <p>
+          <%= link_to shop_review_favorites_path(review.shop_id, review), method: :delete, remote: true, data: {"turbolinks" => false} do %>
+            <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+            <%= review.favorites.count %> いいね
+          <% end %>
+        </p>
+      <% else %>
+        <p>
+          <%= link_to shop_review_favorites_path(review.shop_id, review), method: :post, remote: true, data: {"turbolinks" => false} do %>
+            <i class="fas fa-heart" aria-hidden="true"></i>
+            <%= review.favorites.count %> いいね
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>

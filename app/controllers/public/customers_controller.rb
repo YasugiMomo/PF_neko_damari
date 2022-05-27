@@ -2,7 +2,7 @@ class Public::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
-    @reviews = @customer.reviews
+    @reviews = @customer.reviews.page(params[:page]).per(10)
   end
 
   def edit
@@ -11,8 +11,8 @@ class Public::CustomersController < ApplicationController
 
   def update
     @customer = Customer.find(params[:id])
-    @customer.update(customer_params)
-    if flash[:notice] = "会員情報を更新しました。"
+    if @customer.update(customer_params)
+      flash[:notice] = "会員情報を更新しました。"
       redirect_to customer_path(@customer)
     else
       flash[:alert] = "会員情報の更新に失敗しました。入力内容をご確認いただき、再度お試しください。"
@@ -25,7 +25,7 @@ class Public::CustomersController < ApplicationController
   end
 
   def quit
-    @customer = Customer.find(params[:id])
+    @customer = current_customer
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     if @customer.update(is_status: true)
       reset_session

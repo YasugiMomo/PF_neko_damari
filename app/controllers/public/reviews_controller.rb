@@ -26,7 +26,7 @@ class Public::ReviewsController < ApplicationController
       @review.save_tag(@tag_list)
       flash[:notice] = "レビューを投稿しました。"
       # レビューの一覧へ
-      redirect_to shop_reviews_path(@shop)
+      redirect_to shop_review_path(@review.shop_id, @review)
     else
       flash[:alert] = "レビューの投稿に失敗入力内容をご確認いただき、再度お試しください。"
       @shop = Shop.find(params[:shop_id])

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-8 my-2">
-      <h2>猫カフェ詳細/レビュー投稿</h2>
+    <div class="col-8 mt-2 mb-4">
+      <h2>レビュー投稿</h2>
     </div>
 
     <div class="col-8 shop border-bottom mx-auto mb-4">
@@ -21,7 +21,7 @@
             </div>
             <div class="col-6 average-score-display">
               <%= @shop.avg_rate %>点（<%= link_to @shop.reviews.count, shop_reviews_path(@shop.id) %>件のレビュー）
-              <%= render 'average', shop: @shop %>
+              <%= render '/public/shops/average', shop: @shop %>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-8 new-review-section mx-auto">
-      <%= render 'form', review: @review, shop: @shop %>
+      <%= render '/public/shops/form', review: @review, shop: @shop %>
     </div>
 
   </div>

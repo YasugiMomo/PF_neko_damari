@@ -1,4 +1,5 @@
 class Admin::CommentsController < ApplicationController
+
   def destroy
     Comment.find(params[:id]).destroy
     flash[:notice] = "コメントを削除しました。"

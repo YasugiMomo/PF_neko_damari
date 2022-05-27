@@ -1,13 +1,13 @@
 <div class="container">
   <div class-"row">
-    <div class="col-10 my-4">
+    <div class="col-10 mt-2 mb-4">
       <h2><%= link_to @shop.name, shop_path(@shop) %>のレビュー</h2>
     </div>
 
     <%= render 'review', review: @review %>
-    
 
-    <%= render 'comment', shop: @shop, review: @review, comments: @comments, comment: @comment %>
+
+    <%= render '/public/comments/comments', shop: @shop, review: @review, comments: @comments, comment: @comment %>
 
   </div>
 </div>
