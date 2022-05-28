@@ -2,7 +2,7 @@
 
   <% shops.each do |shop| %>
     <div class="col-8 card mb-3">
-      <div class="row card-header">
+      <div class="row card-body">
         <div class="col-4 card-header-image">
           <%= image_tag shop.get_shop_image(100,100) %>
         </div>
@@ -21,12 +21,12 @@
 
       <div class="row card-footer text-center">
         <div class="col-6">
-          <%= link_to shop_reviews_path(shop), class: "btn card-footer-item" do %>
+          <%= link_to shop_reviews_path(shop), class: "btn btn-info card-footer-item" do %>
             レビューを見る
           <% end %>
         </div>
         <div class="col-6">
-          <%= link_to shop_path(shop), class: "btn card-footer-item" do %>
+          <%= link_to shop_path(shop), class: "btn btn-warning text-white card-footer-item" do %>
             レビューを書く
           <% end %>
         </div>
