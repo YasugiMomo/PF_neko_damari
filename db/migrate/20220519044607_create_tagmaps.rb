@@ -1,10 +1,11 @@
 class CreateTagmaps < ActiveRecord::Migration[6.1]
   def change
     create_table :tagmaps do |t|
-      t.references :review, type: :bigint, foreign_key: true
-      t.references :tag, type: :bigint, foreign_key: true
+      t.bigint :review, limit: 20
+      t.bigint :tag, limit: 20
 
       t.timestamps
     end
+    add_foreign_key :review,:tag
   end
 end
