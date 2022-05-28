@@ -2,7 +2,7 @@ class Public::ReviewsController < ApplicationController
  before_action :authenticate_customer!, only: [:create]
 
   def index
-
+    @tag_list = Tag.all
     # お店に紐づいたレビューの表示
     @shop = Shop.find(params[:shop_id])
     # 絞り込み機能
@@ -15,7 +15,7 @@ class Public::ReviewsController < ApplicationController
     else
       @reviews = @shop.reviews.page(params[:page]).per(4)
     end
-    @tag_list = Tag.all
+
   end
 
   def create
@@ -37,7 +37,6 @@ class Public::ReviewsController < ApplicationController
 
   def search
     @tag_list = Tag.all
-    @tag_list = @shop.tags
     @tag = Tag.find(params[:tag_id])
     @reviews = @tag.reviews.page(params[:page]).per(5)
   end

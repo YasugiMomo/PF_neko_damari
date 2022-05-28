@@ -61,6 +61,6 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
   protected
   def after_sign_in_path_for(resource)
-      shops_path
+      customer_path(current_customer)
   end
 end

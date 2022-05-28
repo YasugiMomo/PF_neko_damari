@@ -27,7 +27,7 @@ class Public::SessionsController < Devise::SessionsController
   # end
   protected
   def after_sign_in_path_for(resource)
-      shops_path
+      customer_path(current_customer)
   end
   # 退会しているかを判断するメソッド
   def customer_state
