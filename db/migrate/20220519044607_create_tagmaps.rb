@@ -1,4 +1,4 @@
-class CreateTagmaps < ActiveRecord::Migration[6.1]
+class CreateTagmaps < ActiveRecord::Migration[6.0]
   def change
     create_table :tagmaps do |t|
       t.references :review, null: false, foreign_key: true
