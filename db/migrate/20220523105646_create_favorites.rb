@@ -6,6 +6,8 @@ class CreateFavorites < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_foreign_key :customers, :reviews
+    add_foreign_key :favorites, :customers
+    add_foreign_key :favorites, :reviews
+    # add_foreign_key :対象のテーブル名, :指定先のテーブル
   end
 end
