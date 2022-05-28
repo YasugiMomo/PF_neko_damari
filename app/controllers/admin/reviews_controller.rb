@@ -25,10 +25,9 @@ class Admin::ReviewsController < ApplicationController
   end
 
   def destroy
-    @customer = Customer.find(params[:id])
     @review = Review.find(params[:id])
     @review.destroy
     flash[:notice] = "レビューを削除しました。"
-    redirect_to customer_path(customer.id)
+    redirect_to admin_shop_reviews_path(@review.shop_id, @review)
   end
 end

@@ -1,17 +1,31 @@
 
-  <table>
-    <tr><%= image_tag @customer.get_profile_image(200,200) %></tr>
+  <div class="profile-image offset-2 mb-2">
+    <%= image_tag customer.get_profile_image(200,200), class: "border" %>
+  </div>
+  <table class='table'>
     <tr>
-      <th>ニックネーム</th>
-      <td><%= @customer.nickname %></td>
+      <th>ニックネーム：</th>
+      <td><%= customer.nickname %></td>
     </tr>
     <tr>
-      <th></th>
-      <td></td>
+      <th>プロフィール：</th>
+      <td><%= customer.introduction %></td>
+    </tr>
+    <tr>
+      <th>レビュー数：</th>
+      <td><%= customer.reviews.count %>件</td>
     </tr>
   </table>
 
   <div class='row'>
       <!--編集ページへのリンク-->
-      <%= link_to "編集する", edit_customer_path(@customer.id) %>
+      <% if current_customer == customer %>
+        <%= link_to edit_customer_path(customer), class: "btn btn-outline-secondary btn-block edit_customer_#{customer.id}" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% elsif admin_signed_in? %>
+        <%= link_to edit_admin_customer_path(customer), class: "btn btn-outline-secondary btn-block edit_customer_#{customer.id}" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% end %>
   </div>

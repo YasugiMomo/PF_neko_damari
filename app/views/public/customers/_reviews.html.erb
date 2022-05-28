@@ -1,18 +1,45 @@
 
-  <P>あなたのレビュー</P>
-  <table>
+  <h4><%= customer.nickname %>さんのレビュー</h4>
+
+  <table class="table">
     <tr>
       <th>猫カフェ</th>
       <th>評価</th>
       <th>タイトル</th>
       <th></th>
+      <th></th>
     </tr>
     <% reviews.each do |review| %>
     <tr>
-      <td><%= link_to review.shop.name, shop_path(review.shop_id) %></td>
-      <td><%= review.rate %></td>
-      <td><%= link_to review.title, shop_review_path(review.shop_id, review.id) %></td>
-      <td><p><%= link_to "#{review.comments.count} コメント", shop_review_path(review.shop_id, review.id) %></p></td>
+      <td>
+        <%= link_to review.shop.name, shop_path(review.shop_id) %>
+      </td>
+      <td>
+        <%= review.rate %>点
+      　<p id="star-rate-<%= review.id %>"></p>
+      </td>
+      <td>
+        <%= link_to review.title, shop_review_path(review.shop_id, review.id) %><br>
+        <%= localize review.created_at %>
+      </td>
+      <td>
+        <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+        <%= review.favorites.count %> いいね<br>
+        <%= link_to "#{review.comments.count} コメント", shop_review_path(review.shop_id, review.id) %>
+      </td>
+      <% if current_customer == review.customer %>
+        <td><%= link_to "編集する", edit_shop_review_path(review.shop_id, review.id), class: "btn btn-success" %></td>
+      <% end %>
     </tr>
+
+    <!--星を表示する-->
+　  <%= render 'public/reviews/star', review: review %>
+
     <% end %>
   </table>
+  <div class="col offset-4">
+    <%= paginate reviews %>
+  </div>
+
+
+

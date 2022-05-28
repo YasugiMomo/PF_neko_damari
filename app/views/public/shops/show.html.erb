@@ -1,28 +1,38 @@
-<section class="section mt-6">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-5">
-        <div class="card mb-6">
-          <header class="card-header">
-            <p class="card-header-title">
-              <%= @shop.name %>
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content average-score">
-              <div class="star-ratubg mb-2">
-                <div class="average-review-rating" data-score=<%= @shop.avg_rate %>></div>
-                <%= render 'average' %>
-              <div class="average-score-display ml-3 pt-2">
-                <%= @shop.avg_rate %>点(<%= link_to @shop.reviews.count, shop_review_path(@shop) %>件のレビュー)
-              </div>
+<div class="container">
+  <div class="row">
+    <div class="col-8 mt-2 mb-4">
+      <h2>レビュー投稿</h2>
+    </div>
+
+    <div class="col-8 shop border-bottom mx-auto mb-4">
+      <div class="row">
+        <div class="col-4 shop-left-section">
+          <%= image_tag @shop.get_shop_image(100,100) %>
+        </div>
+        <div class="col-8 shop-right-section">
+          <div class="row">
+            <%= @shop.name %><br>
+            <%= @shop.address %>
+          </div>
+          <!--平均点の表示-->
+          <div class="row">
+            <div class"col-4 star-rating">
+              <div class="average-review-rating" data-score=<%= @shop.avg_rate %>></div>
+            </div>
+            <div class="col-6 average-score-display">
+              <%= @shop.avg_rate %>点（<%= link_to @shop.reviews.count, shop_reviews_path(@shop.id) %>件のレビュー）
+              <%= render '/public/shops/average', shop: @shop %>
             </div>
           </div>
         </div>
-      </div>
-      <%= render 'form', review: @review, shop: @shop %>
-    </div>
-  </div>
-</section>
 
+      </div>
+    </div>
+
+    <div class="col-8 new-review-section mx-auto">
+      <%= render '/public/shops/form', review: @review, shop: @shop %>
+    </div>
+
+  </div>
+</div>
 

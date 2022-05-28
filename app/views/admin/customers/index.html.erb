@@ -1,21 +1,20 @@
 <div class="container">
-  <P>会員一覧</P>
+  <div class="row">
+    <div class="col-10 mt-2 mb-4">
+      <h2>会員一覧</h2>
+    </div>
 
-  <table>
-    <tr>
-    <th></th>
-    <th></th>
-    </tr>
-    <% @customers.each do |customer| %>
-    <tr>
-      <td>
-        <%= image_tag customer.get_profile_image(200,200) %><br>
-        <%= customer.nickname %>
-      </td>
-      <td><%= link_to customer.reviews.count, shop_reviews_path(customer) %></td>
-    </tr>
-    <% end %>
-  </table>
+    <!--検索機能-->
+    <div class="col-10 search_form my-2 text-right">
+      <%= form_with url:  admin_customers_search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :word, placeholder: "ニックネームで検索" %>
+        <%= f.submit "検索", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+    <%= render 'index', customers: @customers %>
+
+  </div>
 </div>
 
 

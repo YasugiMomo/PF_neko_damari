@@ -1,2 +1,14 @@
-<h1>Admin::Reviews#show</h1>
-<p>Find me in app/views/admin/reviews/show.html.erb</p>
+<div class="container">
+  <div class-"row">
+    <div class="col-10 mt-2 mb-4">
+      <h2><%= link_to @shop.name, shop_path(@shop) %>のレビュー</h2>
+    </div>
+
+    <%= render '/public/reviews/review', review: @review %>
+
+
+    <%= render '/public/reviews/comment', shop: @shop, review: @review, comments: @comments, comment: @comment %>
+
+  </div>
+</div>
+

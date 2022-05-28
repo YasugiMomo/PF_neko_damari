@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+
+  <% shops.each do |shop| %>
+    <div class="col-8 card mb-3">
+      <div class="row card-header">
+        <div class="col-4 card-header-image">
+          <%= image_tag shop.get_shop_image(100,100) %>
+        </div>
+        <div class="col-8 card-header-title pt-4">
+          <%= shop.name %><br>
+          <%= shop.address %>
+        </div>
+
+        <div class="col-4 star-rating">
+          <div class="average-review-rating" data-score=<%= shop.avg_rate %>></div>
+        </div>
+        <div class="col-8 average-score-display">
+          <%= shop.avg_rate %>点（<%= link_to shop.reviews.count, admin_shop_reviews_path(shop.id) %>件のレビュー）
+        </div>
+      </div>
+
+      <div class="row card-footer text-center">
+        <div class="col-12">
+          <%= link_to admin_shop_reviews_path(shop), class: "btn btn-info card-footer-item" do %>
+            レビューを見る
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!--平均点を星で表示-->
+  <%= render '/public/shops/average' %>
+
+</div>
+<div class="row mx-auto">
+  <%= paginate shops %>
+</div>

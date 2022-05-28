@@ -1,0 +1,35 @@
+    <div class="col-8 reviews-index mx-auto">
+      <% reviews.each do |review| %>
+      <div class="row">
+        <div class="col card mb-2">
+          <div class="row mt-2">
+            <div class="col-3 review-customer text-center">
+              <%= image_tag review.customer.get_profile_image(100,100) %><br>
+　            <%= review.customer.nickname %>
+            </div>
+            <div class="col-5">
+              <p><%= link_to review.title, shop_review_path(review.shop_id, review) %></p>
+              <div class="row rating-star">
+                <p id="star-rate-<%= review.id %>"></p>
+                <%= review.rate %>点
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 mx-4 my-2">
+              <%= review.content %>
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div id="review_<%= review.id %>"><%= render '/public/favorites/favorite-btn', review: review %></div>
+
+            <div class="col-3 comment-link">
+              <%= link_to review.comments.count, shop_review_path(review.shop_id, review) %>件のコメント
+            </div>
+          </div>
+        </div>
+        <!--星を表示する-->
+　      <%= render '/public/reviews/star', review: review %>
+      </div>
+      <% end %>
+    </div>

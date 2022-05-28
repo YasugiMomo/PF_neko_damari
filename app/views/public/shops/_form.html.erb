@@ -1,54 +1,60 @@
-<p class -"is-size-4 mb-3">レビューを書く</p>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <p class="font-weight-bold">レビューを書く</p>
+    </div>
 
-<div class="rating-box mt-3">
-
-  <%= form_with model: review, url: shop_reviews_path(shop), method: :post, local: true do |f| %>
-
-    <div class="field">
-
-      <%= f.hidden_field :shop_id, value: shop.id %>
-
-      <div class="form-group" id="star">
-        <%= f.label :rate, '評価：', class:'col-form-label' %>
-        <%= f.hidden_field :rate, id: :review_star %>
-      </div>
-
-      <div>
-        <%= f.label "タイトル：" %>
-        <%= f.text_field :title %>
-      </div>
-
-      <div>
-        <%= f.label "レビュー：" %><br>
-        <%= f.text_area :content %>
-      </div>
-
-      <div>
-        <%= f.label "画像を投稿する" %><br>
-        <%= f.file_field :review_image, accept: "image/*" %>
-      </div>
-
-      <div>
-        <p>
-          スペースを入力することで複数にタグを付けることができます。<br>
-          例：猫 保護猫カフェ かわいい
-        </p>
-        <%= f.text_field :tag_name %>
-        <div>
-          <% @tag_list.each do |list| %>
-            <%= link_to list.tag_name, tag_reviews_path(list.id) %>
-            <%= "(#{list.reviews.count})" %>
-          <% end %>
-        </div>
-      </div>
+    <div class="col-10 review-form mx-auto">
+      <%= form_with model: review, url: shop_reviews_path(shop), method: :post, local: true do |f| %>
 
 
-      <div>
-        <%= f.submit "投稿する" %>
-      </div>
+          <%= f.hidden_field :shop_id, value: shop.id %>
+
+          <div class="form-group" id="star">
+            <%= f.label :rate, '評価：' %>
+            <%= f.hidden_field :rate, id: :review_star %>
+          </div>
+
+          <div>
+            <%= f.label "タイトル：" %>
+            <%= f.text_field :title, class: "form-control" %>
+          </div>
+
+          <div class="mt-2 mb-4">
+            <%= f.label "レビュー：" %><br>
+            <%= f.text_area :content, size: "20x5", class: "form-control" %>
+          </div>
+
+          <div>
+            <%= f.label "画像：" %>
+            <%= f.file_field :review_images, multiple: true, accept: "image/*" %>
+          </div>
+
+          <div class="mt-2">
+            <p>
+              半角スペースを入力することで複数のタグを付けることができます。<br>
+              例：猫 保護猫カフェ かわいい
+            </p>
+            <%= f.text_field :tag_name, class: "form-control" %>
+          </div>
+          <div>
+            <% @tag_list.each do |list| %>
+              <%= link_to list.tag_name, tag_reviews_path(list.id) %>
+              <%= "(#{list.reviews.count})" %>
+            <% end %>
+          </div>
+
+          <div class="row justify-content-center mt-4">
+            <%= f.submit "投稿する", class: "btn btn-success" %>
+          </div>
+      <% end %>
+
+          <div class="row justify-content-center mt-4">
+            <%= link_to "戻る", :back, class: "border-bottom" %>
+          </div>
 
     </div>
-  <% end %>
+
 
       <!-- 評価javascript -->
       <script>
@@ -60,6 +66,5 @@
         });
       </script>
 
-
-
+  </div>
 </div>

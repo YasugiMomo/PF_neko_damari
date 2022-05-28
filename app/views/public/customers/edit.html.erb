@@ -1,17 +1,35 @@
-<h1>会員情報編集画面</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-10 mt-2 mb-4">
+      <h2>会員情報編集</h2>
+    </div>
 
-<%= form_with model: @customer, url: customer_path(@customer.id), method: :patch do |f| %>
+    <div class="col-4 mx-auto">
+      <%= form_with model: @customer, url: customer_path(@customer.id), method: :patch do |f| %>
 
-  <div class=field>
-    <%= f.label "ニックネーム" %><br />
-    <%= f.text_field :nickname, autofocus: true, placeholder:"ニックネーム"%>
+        <div class="field">
+          <%= f.label "ニックネーム" %><br />
+          <%= f.text_field :nickname, autofocus: true, placeholder: "20文字以内", class: "form-control" %>
+        </div>
+
+        <div class="field mt-4">
+          <%= f.label "プロフィール" %><br />
+          <%= f.text_area :introduction, placeholder: "例：猫カフェ巡りが趣味です！", class: "form-control" %>
+        </div>
+
+        <div class="field my-4">
+          <%= f.label "プロフィール画像" %><br />
+          <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+        </div>
+
+        <div class="row justify-content-center">
+          <%= f.submit '編集内容を保存する', class: "btn btn-success" %>
+          <%= link_to "退会する", customers_out_path, class: "btn btn-danger ml-5" %>
+        </div>
+      <% end %>
+
+    </div>
   </div>
+</div>
 
-  <div class=field>
-    <%= f.label "プロフィール画像" %><br />
-    <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
-  </div>
 
-  <%= f.submit '保存' %>
-
-<% end %>

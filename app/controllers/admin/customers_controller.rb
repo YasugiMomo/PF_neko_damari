@@ -1,7 +1,7 @@
 class Admin::CustomersController < ApplicationController
 
   def index
-    @customers = Customer.all
+    @customers = Customer.page(params[:page]).per(10)
   end
 
   def show
@@ -15,8 +15,17 @@ class Admin::CustomersController < ApplicationController
 
   def update
     @customer = Customer.find(params[:id])
-    @customer.update(customer_params)
-    redirect_to customer_path(customer.id)
+    if @customer.update(customer_params)
+      flash[:notice] = "会員情報を更新しました。"
+      redirect_to admin_customers_path
+    else
+      flash[:alert] = "会員情報の更新に失敗しました。"
+      render "show"
+    end
+  end
+
+  def search
+    @customers = Customer.looks(params[:word]).page(params[:page]).per(10)
   end
 
   private

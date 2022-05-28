@@ -2,19 +2,20 @@ class Public::ReviewsController < ApplicationController
  before_action :authenticate_customer!, only: [:create]
 
   def index
-    @tag_list = Tag.all
+
     # お店に紐づいたレビューの表示
     @shop = Shop.find(params[:shop_id])
     # 絞り込み機能
     if params[:latest]
-      @reviews = @shop.reviews.latest
+      @reviews = @shop.reviews.latest.page(params[:page]).per(5)
     elsif params[:old]
-      @reviews = @shop.reviews.old
+      @reviews = @shop.reviews.old.page(params[:page]).per(5)
     elsif params[:star_count]
-      @reviews = @shop.reviews.star_count
+      @reviews = @shop.reviews.star_count.page(params[:page]).per(5)
     else
-      @reviews = @shop.reviews
+      @reviews = @shop.reviews.page(params[:page]).per(4)
     end
+    @tag_list = Tag.all
   end
 
   def create
@@ -26,7 +27,7 @@ class Public::ReviewsController < ApplicationController
       @review.save_tag(@tag_list)
       flash[:notice] = "レビューを投稿しました。"
       # レビューの一覧へ
-      redirect_to shop_reviews_path(@shop)
+      redirect_to shop_review_path(@review.shop_id, @review)
     else
       flash[:alert] = "レビューの投稿に失敗入力内容をご確認いただき、再度お試しください。"
       @shop = Shop.find(params[:shop_id])
@@ -36,8 +37,9 @@ class Public::ReviewsController < ApplicationController
 
   def search
     @tag_list = Tag.all
+    @tag_list = @shop.tags
     @tag = Tag.find(params[:tag_id])
-    @reviews = @tag.reviews
+    @reviews = @tag.reviews.page(params[:page]).per(5)
   end
 
   def show
@@ -54,14 +56,22 @@ class Public::ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
+    if params[:review][:review_image_ids]
+      params[:review][:review_image_ids].each do |image_id|
+        review_image = @review.review_images.find(image_id)
+        review_image.purge
+      end
+    end
+
     if @review.update(review_params)
       flash[:notice] = "レビューを更新しました。"
-      redirect_to shop_review_path(review.shop_id, review.id)
+      redirect_to shop_review_path(@review.shop_id, @review)
     else
       flash[:alert] = "レビューの更新に失敗しました。入力内容をご確認いただき、再度お試しください。"
       render "edit"
     end
   end
+
 
   def destroy
     @review = Review.find(params[:id])
@@ -74,7 +84,7 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:customer_id, :shop_id, :title, :content, :review_image, :rate)
+    params.require(:review).permit(:customer_id, :shop_id, :title, :content, :rate, review_images: [])
   end
 
 end

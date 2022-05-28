@@ -1,0 +1,45 @@
+    <div class="col-8 card mx-auto">
+      <div class="row">
+        <div class="col-3 review-customer text-center">
+          <%= image_tag review.customer.get_profile_image(100,100) %><br>
+　        <%= review.customer.nickname %>
+        </div>
+        <div class="col-5">
+          <p><%= review.title %></p>
+          <div class="row rating-star">
+            <p id="star-rate-<%= review.id %>"></p>
+            <%= review.rate %>点
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8 mx-4 my-2">
+          <%= review.content %>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div id="review_<%= review.id %>"><%= render '/public/favorites/favorite-btn', review: @review %></div>
+
+        <div class="col-3 comment-link">
+          <%= link_to review.comments.count, shop_review_path(review.shop_id, review) %>件のコメント
+        </div>
+      </div>
+      <div class="row justify-content-end mr-5">
+          <% if review.customer == current_customer %>
+            <%= link_to "編集する", edit_shop_review_path(review), class: "btn btn-success mr-3" %>
+            <%= link_to "削除する", shop_review_path(review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+          <% elsif admin_signed_in? %>
+            <%= link_to "削除する", admin_shop_review_path(review), class: "btn btn-danger", method: :delete, data: {confirm: "削除しますか？"}  %>
+          <% end %>
+      </div>
+      <!--星を表示する-->
+　    <%= render '/public/reviews/star', review: review %>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-8 review-image mt-2">
+        <p>投稿写真：</p>
+          <% review.review_images.each do |image| %>
+            <%= image_tag image, width:200, height: 200, class: "border mb-2" %>
+          <% end %>
+      </div>
+    </div>

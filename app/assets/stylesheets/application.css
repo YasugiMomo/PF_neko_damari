@@ -13,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+header{
+  background-color: #ffb6b9;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+}
+
+
+footer{
+  width: 100%;
+  /* 以下 背景色やテキストカラーなどはお好みで指定してください */
+  background: #8ac6d1;
+  color: #fff;
+  text-align: center;
+}
+

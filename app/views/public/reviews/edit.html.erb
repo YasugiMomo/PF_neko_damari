@@ -1,13 +1,45 @@
-<p>レビュー編集画面</p>
+<div class="container">
+  <div class="row">
+    <div class="col-8 mt-2 mb-4">
+      <h2>レビュー編集</h2>
+    </div>
 
-<%= form_with model: @review, url: shop_review_path(@review.id), method: :patch do |f| %>
+    <div class="col-8 mx-auto">
+      <%= form_with model: @review, url: shop_review_path(@review), method: :patch do |f| %>
 
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
+        <div class="field">
+          <%= f.label "タイトル：" %><br />
+          <%= f.text_field :title, autofocus: true, placeholder: "タイトル", class: "form-control" %>
+        </div>
 
-  <h4>レビュー</h4>
-  <%= f.text_area :content %>
+        <div class="field mt-4">
+          <%= f.label "レビュー：" %><br />
+          <%= f.text_area :content, size: "20x5", class: "form-control" %>
+        </div>
 
-  <%= f.submit '保存' %>
+        <div class="field my-4">
+          <%= f.label "画像" %>
+          <%= f.file_field :review_images, multiple: true, accept: "image/*" %>
+        </div>
 
-<% end %>
+        <% if @review.review_images.present? %>
+          <p>現在登録されている画像（削除する場合は、チェックしてください）</p>
+          <% @review.review_images.each do |image| %>
+            <%= f.check_box :review_image_ids, {multiple: true}, image.id, false %>
+            <label for="review_image_ids_<%= image.id %>" >
+            <%= image_tag image, size: "200x200", class: "mr-2" %>
+            </label>
+          <% end %>
+        <% end %>
+
+        <div class="row justify-content-center">
+          <%= f.submit '保存', class: "btn btn-success" %>
+        </div>
+      <% end %>
+         <div class="row justify-content-center mt-4">
+            <%= link_to "戻る", :back, class: "border-bottom" %>
+          </div>
+    </div>
+  </div>
+</div>
+

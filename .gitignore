@@ -43,3 +43,5 @@ yarn-debug.log*
 /config.json
 /shops.rb
 /shops.html
+/shops.csv
+/db/seeds.rb
