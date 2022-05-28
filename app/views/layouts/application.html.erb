@@ -12,15 +12,13 @@
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
     <main>
-      <%= render 'layouts/header' %>
       <p id="notice" class="text-success offset-2 font-weight-bold"><%= notice %></p>
       <p id="alert" class="text-danger offset-2 font-weight-bold"><%= alert %></p>
 
       <%= yield %>
-
-
     </main>
-    <!--<%= render 'layouts/footer' %>-->
+    <%= render 'layouts/footer' %>
   </body>
 </html>

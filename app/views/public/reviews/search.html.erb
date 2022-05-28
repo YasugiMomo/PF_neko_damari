@@ -20,4 +20,7 @@
 
     <%= render 'index', reviews: @reviews %>
   </div>
+    <div class="row paginate justify-content-center">
+      <%= paginate @reviews %>
+    </div>
 </div>

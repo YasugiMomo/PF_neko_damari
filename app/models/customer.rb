@@ -10,7 +10,11 @@ class Customer < ApplicationRecord
 
   has_one_attached :profile_image
 
-  validates :nickname, presence: true
+  validates :nickname,
+    length: { minimum: 1, maximum: 20 }
+
+  validates :email, presence: true
+
 
    # 検索機能
   def self.looks(word)
