@@ -9,6 +9,8 @@ class CreateReviews < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_foreign_key :customers, :shops
+    add_foreign_key :reviews, :customers
+    add_foreign_key :reviews, :shops
+    # add_foreign_key :対象のテーブル名, :指定先のテーブル
   end
 end
