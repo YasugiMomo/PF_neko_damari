@@ -6,6 +6,6 @@ class CreateFavorites < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_foreign_key :customer,:review
+    add_foreign_key :customers,:reviews
   end
 end

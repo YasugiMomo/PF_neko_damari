@@ -6,6 +6,6 @@ class CreateTagmaps < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_foreign_key :review,:tag
+    add_foreign_key :reviews,:tags
   end
 end
