@@ -14,7 +14,7 @@
           <tr>
             <th><%= customer.id %></th>
             <td>
-              <%= image_tag customer.get_profile_image(100,100) %><br>
+              <!--<%= image_tag customer.get_profile_image(100,100) %><br>-->
               <%= link_to customer.nickname, admin_customer_path(customer.id) %>
             </td>
             <td><%= customer.email %></td>
